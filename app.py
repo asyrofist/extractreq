@@ -354,8 +354,8 @@ if __name__ == "__main__":
           st.table(df_a)
 
           myXmlParser.__del__()
-      elif (pilih_data == 'data/rAnalyzerUC.xmi'):
-          myXmlParser = xmlParser(filename= 'rAnalyzerUC.xmi')
+      elif (pilih_data == 'rAnalyzerUC.xmi'):
+          myXmlParser = xmlParser(filename= 'data/rAnalyzerUC.xmi')
           paketElemen = myXmlParser.dataPaketElemen()
           extendTable = myXmlParser.dataExtend()
           includeTable = myXmlParser.dataInclude()

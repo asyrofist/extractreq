@@ -8,14 +8,12 @@ nltk.download('wordnet')
 
 # library untuk modul 1
 import pandas as pd
-from tabulate import tabulate
 from stanfordcorenlp import StanfordCoreNLP
 from nltk.parse.corenlp import CoreNLPParser
 
 #library untuk modul 2
 import pandas as pd
 import numpy as np
-from tabulate import tabulate
 from pywsd.cosine import cosine_similarity
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize 

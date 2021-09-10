@@ -535,7 +535,7 @@ if __name__ == "__main__":
       """# Modul3: pencarian relasi"""
       pilih_data = st.sidebar.selectbox(
       'Pilih file',
-      ('freq_ucd1', 'freq_ucd1', 'all'))
+      ('freq_ucd1', 'freq_ucd2', 'all'))
 
       MyucdReq = ucdReq()
       tabel_freq =  'tabel_freqs'
@@ -550,7 +550,7 @@ if __name__ == "__main__":
           """## Data Pengukuran antara functional dan ucd1"""
           st.table(tbl_1)
 
-      elif (pilih_data == 'freq_ucd1'):
+      elif (pilih_data == 'freq_ucd2'):
           ucd2= ucd2.dropna()
           tbl_2 = MyucdReq.useCaseMeasurement(keyword1= freqs.aksi, keyword2=ucd2.aksi , id1= freqs.id, id2= ucd2.usecase)
           """## Data Pengukuran antara functional dan ucd2"""

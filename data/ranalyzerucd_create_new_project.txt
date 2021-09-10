@@ -1,0 +1,46 @@
+id,usecase,flowOfEvents
+basic_flow
+1,create_new_project,The requirements engineer clicks on a menu to create a new project.
+2,create_new_project,The system shows a project description window.
+3,create_new_project,The requirements engineer fills in the necessary data. After he finish; he click on a Continue Button to proceed to the next step.
+4,show_project_worksheet,The system Shows Project Worksheet.
+5,create_new_project,The requirements engineer clicks on Save menu.
+alternative_flows
+
+extension_points
+4a_1,add_document,Requirements engineer clicks on Add Document button.
+4a_2,add_document,The system opens a window explorer.
+4a_3,add_document,Requirements engineer selects a use case diagram file with an .xmi extension. He clicks on Open button.
+4a_4,add_document,The system show a loading in progress message.
+4a_5,add_document,The system add the use case diagram on the use case diagram list.
+4a_6,add_document,Requirements Engineer clicks on Add Description button.
+4a_7,add_document,The system shows a Use Case Description form.
+4a_8,add_document,Requirements Engineer paste the use case description to the given field. He clicks on the submit buton.
+4a_9,add_document,The system shows a progress information.
+4a_10,add_document,The system returns to the project worksheet window.
+4b_1,add_statement,Requirements engineer clicks on Add Statement button.
+4b_2,add_statement,The system opens a requirements statement form.
+4b_3,add_statement,Requirements engineer types the statement and other relevant metadata on the given field. He clicks on Add button.
+4b_4,add_statement,The system add the new statement into the statement list.
+4c,save;Add any given time;the requiremens engineer can click on Save menu to save any change that has been made.
+4d_1,view_dependency,Requirements engineer clicks on View Dependency button.
+4d_2,view_dependency,The system opens a dependency window and show the dependency graph.
+4d_3,view_dependency,Requirmeents engineer close the window.
+4d_4,view_dependency,The system close the window and return to worksheet.
+4e_1,check_dependency,Requirements engineer clicks on Check Dependency button.
+4e_2,check_dependency,The system shows a progress bar.
+4e_3,check_dependency,The system View Dependency.
+4f_1,edit_statement,Requirements engineer clicks on selected statement within the Statement Window.
+4f_2,edit_statement,The system opens a requirements statement form in a new window and shows the respected statement.
+4f_3,edit_statement,Requirements engineer edit the statement and other relevant metadata on the given field. He clicks
+Save button.
+4f_4,edit_statement,The system return to the worksheet.
+4g_1,delete_statement,Requirements engineer clicks on Delete button of respected statement within the Statement Window. 
+4g_2,delete_statement,The system opens a dialog box asking for confirmation.
+4g_3,delete_statement,Requirements engineer clicks on OK to persue the deletion of the statement.
+4g_4,delete_statement,The system return to the worksheet.
+4h_1,remove_document,Requirements engineer clicks on Delete button of respected document within the UML Diagram
+Window.
+4h_2,remove_document,The system opens a dialog box asking for confirmation.
+4h_3,remove_document,Requirements engineer clicks on OK to persue the deletion of the document.
+4h_4,remove_document,The system return to the worksheet.

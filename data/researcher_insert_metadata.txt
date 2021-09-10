@@ -1,0 +1,19 @@
+id,usecase,flowOfEvents
+basic_flow
+1,insertMetadata,In the main page; Submitter clicks on insert metadata menu.
+2,insertMetadata,The system shows a form for inserting metadata. 
+3,insertMetadata,Submitter fills in the metadata field with metadata of article(s); then clicks on submit button.
+4,insertMetadata,The system shows the progress information. After it is done; the system shows a message: “Submission is completed.”
+5,insertMetadata,The system returns to the main page.
+
+alternative_flows
+
+extensionPoints
+3b,searchArticle,Submitter can add metadata by Search an existing Article based on a keyword.
+3b.1,searchArticle,Submitter enter a keyword and clicks Search Article button.
+3b.2,searchArticle,The system shows the progress information. After it is done it shows a result (a list of relevant articles).
+3b.4,searchArticle,Submitter click an Add button on a relevant article.
+3b.5,searchArticle,The system shows the metadata of the relevant article.
+3b.2a,viewNextResult,The Submitter can View to the Nextpage of the Result.
+4b.2a.1,viewNextResult,The Submitter clicks on Next button to move to the next page.
+4b.2a.2,viewNextResult,The system shows the next result.

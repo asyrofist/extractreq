@@ -1,0 +1,26 @@
+id,usecase,flowOfEvents
+basic_flow
+1,searchArticle,The actor enter a keyword on the search field and clicks on the Search Button.
+2,searchArticle,The system shows a progress bar.
+3,searchArticle,After it has finished searching; the system views the list of articles which are relevant to the keyword being entered.
+
+alternative_flows
+
+extension_points
+3a,orderByYear,The actor can change the view of articles based on Order by Year of articles publication.
+3a.1,orderByYear,The actor clicks on Year menu
+3a.2,orderByYear,The system refreshes the view and order the articles based on their publication year.
+3b,orderByCitation,The actor can change the view of articles based on Order by Citation of articles publication.
+3b.1,orderByCitation,The actor clicks on Citation menu
+3b.2,orderByCitation,The system refreshes the view and order the articles based on their publication year.
+3c,deleteArticle,The Submitter Delete his Article.
+3c.1,deleteArticle,The Submitter clicks on Delete menu of respected article.
+3c.2,deleteArticle,The system refreshes the view and remove the deleted article from the list.
+3d,viewDetail,The actor can view detail of an article
+3d.1,viewDetail,The submitter clicks on the article's title
+3d.2,viewDetail,The system views the metadata of the article
+3d.2a,deleteArticle,The submitter delete his article
+3d.2b,editMetadata,The submitter edit metadata of his article
+3d.2b.1,editMetadata,The submitter edit the corresponding field
+3d.2b.2,editMetadata,The submitter click on the save button
+3d.2b.2,editMetadata,The system return to the list

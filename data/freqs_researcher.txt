@@ -1,0 +1,9 @@
+id,requirement
+F01,Submitter can insert metadata of article
+F02,Submitter or Viewer can search researchers which are relevant to keyword
+F03,Submitter or Viewer can sort the researchers start from the highest score
+F04,Submitter or Viewer can sort the article starts from the relevancy
+F05,Submitter or viewer can view the detail of a researcher profile
+F06,Submitter can remove an article from his/her profile
+F07,Submitter can edit his/ her profile
+F08,The system can show a progress bar

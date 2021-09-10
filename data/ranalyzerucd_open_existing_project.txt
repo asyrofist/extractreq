@@ -1,0 +1,7 @@
+id,usecase,flowOfEvents
+basic_flow
+1,open_existing_project,The requirements engineer clicks on a menu to open an existing project.
+2,open_existing_project,The system opens a window explorer.
+3,open_existing_project,The requirements engineer selects a class diagram file with an .xmi extension. He clicks on Open button. 
+4,open_existing_project,The system shows a loading progress
+5,show_project_worksheet,The system Shows Project Worksheet that contains the project. 

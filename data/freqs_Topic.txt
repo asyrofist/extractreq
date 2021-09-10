@@ -1,0 +1,9 @@
+id,requirement
+F01,Submitter can insert metadata of article
+F02,Submitter or Viewer can search articles which are relevant to a keyword
+F03,Submitter or Viewer can sort the article starts from the highest cited article
+F04,Submitter or Viewer can sort the article starts from the newest publications
+F05,Submitter can delete an article
+F06,Submitter or viewer can view detail of the article's metadata
+F07,Submitter can edit metadata of an article
+F08,System can view progress bar

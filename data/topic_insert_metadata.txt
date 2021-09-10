@@ -1,0 +1,18 @@
+id,usecase,flowOfEvents
+basic_flow
+1,insertMetadata,In the main page; Submitter clicks on insert metadata menu.
+2,insertMetadata,The system shows a form for inserting metadata.
+3,insertMetadata,Submitter fills in the metadata field with metadata of article(s). then clicks on submit button.
+4,insertMetadata,The system shows the progress information; After it is done; the system shows a message: “Submission is completed.”
+5,insertMetadata,The system returns to the main page.
+
+alternative_flow
+
+extension_points
+4b,reclusterArticle,Submitter can recluster article based on the new collection of metadata to produce newest classes.
+4b.1,reclusterArticle,Submitter clicks recluster button.
+4b.2,reclusterArticle,The system shows the progress information; After it is done it shows a confirmation dialog box that ask the submitter whether to replace the existing classes with the new classes.
+4b.3,reclusterArticle,Submitter clicks on yes button to confirm.
+4b.4,reclusterArticle,The system shows a loading in progress message; After it is done; the system shows message: “Process is completed.”
+4b.2a,usesNewClasses,If there are no current classes; the system uses the New Classes.
+4b.2a.1,usesNewClasses,After the clustering is done; the system shows a loading in progress message; After it is done; the system shows message: “Process is completed”. Requirements engineer clicks on Add Statement button.

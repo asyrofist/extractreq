@@ -1,222 +1,561 @@
 import streamlit as st
 
 # library untuk modul 1
+import xml.etree.ElementTree as ET
 import pandas as pd
-from stanfordcorenlp import StanfordCoreNLP
-from nltk.parse.corenlp import CoreNLPParser
 
-#library untuk modul 2
-import pandas as pd
-import numpy as np
-from pywsd.cosine import cosine_similarity
+# library untuk modul 2
+from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize 
-from nltk.corpus import wordnet as wn
 from nltk.stem.wordnet import WordNetLemmatizer
-from sklearn import metrics
-from sklearn.metrics import confusion_matrix
 
+# library untuk modul 3
+from nltk.tokenize import word_tokenize 
+from pywsd import disambiguate
+from pywsd.cosine import cosine_similarity
+
+stemming = PorterStemmer()
 stops = set(stopwords.words("english"))
 lem = WordNetLemmatizer()
 
-# -*- coding: utf-8 -*-
-"""modul_partof_(ekspart)
-
-Author Rakha Asyrofi / 0511195001038
+"""
+Modul ini dibuat oleh Rakha Asyrofi / 05111950010038
 
 Original file is located at
-    https://colab.research.google.com/drive/1cRCUN0tsJGjcOOjI8igSOCKK9s8_h6eK
+    https://colab.research.google.com/drive/1h6HKNeALV8bXjrxWB0Jn0ztHtLv2cXz8
 """
 
-class partOf: #template
 
-  def __init__(self, inputData  = r'../dataset_2.xlsx', 
-               dataStanford     = r'E:\\stanford-corenlp-4.0.0',
-               urlStanford      = 'http://corenlp.run/'):
-    self.data         = inputData
-    self.dataTag      = dataStanford
-    self.stanford_url = urlStanford
+# template class xmlparser
+class xmlParser:
 
-  def fulldataset(self, inputSRS):
-    xl = pd.ExcelFile(self.data)
-    dfs = {sh:xl.parse(sh) for sh in xl.sheet_names}
-    kalimat = dfs[inputSRS]
-    kalimat_semua = kalimat.head(len(kalimat))
-    return kalimat_semua
+    # inisialisasi
+    def __init__(self, filename= 'IRCI_Researcher.xmi', 
+                 tipe_xmi= '{http://schema.omg.org/spec/XMI/2.1}type',
+                 id_xmi= '{http://schema.omg.org/spec/XMI/2.1}id'):
+    	self.namaFile = filename
+    	self.xmi_type = tipe_xmi
+    	self.xmi_id = id_xmi
 
-  def preprocessing(self):
-    xl = pd.ExcelFile(self.data)
-    for sh in xl.sheet_names:
-      df = xl.parse(sh)
-      st.write('Processing: [{}] ...'.format(sh))
-      st.write(df.head())
+    def data_root(self):
+        tree = ET.parse(self.namaFile)
+        root = tree.getroot()
+        return root
 
-  # nltk stanford
-  def parsing(self, data):
-      parser = CoreNLPParser(url=self.stanford_url)
-      next(parser.raw_parse(data)).pretty_print()
+    def dataPaketElemen(self, category = 'packagedElement'):
+      try:
+        hasil = []
+        berdasarkanPackagedELement = [packagedElement.attrib for packagedElement in 
+        xmlParser.data_root(self).iter(category)]
+        for num in berdasarkanPackagedELement:
+          a1 = num[self.xmi_id]
+          b1 = num['name']
+          d1 = num[self.xmi_type]
+          hasil.append([a1, b1, d1])
 
-  # stanford library
-  def stanfordConstituencyparsing(self, sentence):
-      nlp = StanfordCoreNLP(self.dataTag)
-      st.write(nlp.parse(sentence))
-      nlp.close() # Do not forget to close! The backend server will consume a lot memery.
-class wsd_partof:
-  def __init__(self):
-      pass
+        paketElemen = pd.DataFrame(hasil, columns=['id', 'name', 'type'])
+        return paketElemen
 
-  def fulldataset(self, dataFile, inputSRS):
-      xl = pd.ExcelFile(dataFile)
+      except OSError as err:
+        print("OS error: {0}".format(err))
+
+    def dataExtend(self, category = 'extend'):
+      try:
+        hasil = []
+        berdasarkanExtend = [packagedElement.attrib for packagedElement in 
+        xmlParser.data_root(self).iter(category)]
+        for num in berdasarkanExtend:
+          a1 = num[self.xmi_id]
+          b1 = num[self.xmi_type]
+          c1 = num['extendedCase']
+          d1 = paketElemen[paketElemen['id'] == c1].iloc[0]['name']
+          e1 = num['extension']
+          f1 = paketElemen[paketElemen['id'] == e1].iloc[0]['name']
+          hasil.append([a1, b1, c1, d1, e1, f1])
+          
+        extendTable = pd.DataFrame(hasil, columns=['id', 'type', 'source', 
+        'sourceName', 'destination', 'destinationName'])
+        return extendTable
+      except OSError as err:
+        print("OS error: {0}".format(err))
+
+    def dataInclude(self, category = 'include'):
+      try:
+        hasil = []
+        byinclude = [packagedElement.attrib for packagedElement in xmlParser.data_root(self).iter(category)]
+        for num in byinclude:
+          a1 = num['{http://schema.omg.org/spec/XMI/2.1}id']
+          b1 = num['{http://schema.omg.org/spec/XMI/2.1}type']
+          c1 = num['includingCase']
+          d1 = paketElemen[paketElemen['id'] == c1].iloc[0]['name']
+          e1 = num['addition']
+          f1 = paketElemen[paketElemen['id'] == e1].iloc[0]['name']
+          hasil.append([a1, b1, c1, d1, e1, f1])
+        includeTable = pd.DataFrame(hasil, columns= ['id', 'tipe', 'include', 
+        'includeName', 'addition', 'additionName'])
+        return includeTable        
+      except OSError as err:
+        print("OS error: {0}".format(err))
+
+    def dataOwnedEnd(self, category = 'ownedEnd'):
+      try:
+        # berdasarkan ownedEnd
+        hasil = []
+        berdasarkanOwnedEnd = [packagedElement.attrib for packagedElement in 
+        xmlParser.data_root(self).iter(category)]
+        berdasarkanOwnedEnd
+        for num in berdasarkanOwnedEnd:
+          a1 = num['type']
+          b1 = num[self.xmi_id]
+          c1 = num[self.xmi_type]
+          d1 = paketElemen[paketElemen['id'] == a1].iloc[0]['name']
+          hasil.append([a1, b1, c1, d1])
+          
+        ownedEndTable = pd.DataFrame(hasil, columns=['id_data', 'id_property', 
+        'type_property', 'id_name'])
+        return ownedEndTable
+      except OSError as err:
+        print("OS error: {0}".format(err))
+
+
+    def dataOwnedMember(self, category = 'ownedMember'):
+      try:
+        # berdasarkan UML Model
+        hasilNum = []
+        berdasarkanOwnedMember = [packagedElement for packagedElement in 
+        xmlParser.data_root(self).iter(category)]
+        for num in berdasarkanOwnedMember:
+          a = num.attrib[self.xmi_id]
+          b = num.attrib[self.xmi_type]
+          for index, angka in enumerate(num.iter('ownedEnd')):
+            if index == 0:
+              c = paketElemen[paketElemen['id'] == angka.attrib['type']].iloc[0]['name']
+            else:
+              d = paketElemen[paketElemen['id'] == angka.attrib['type']].iloc[0]['name']
+          hasilNum.append([a, b, c, d])
+
+        ownedMemberTable = pd.DataFrame(hasilNum, columns=['id', 'type_property', 
+        'actor', 'usecase'])
+        return ownedMemberTable  
+      except OSError as err:
+        print("OS error: {0}".format(err))
+
+    def __del__(self):
+        print ('Destructor called.')    
+
+# template class parsingRequirement
+class parsingRequirement:
+
+    # inisialisasi
+    def __init__(self, filename):
+    	self.namaFile = filename
+      
+    #fungsi parse tree elemen
+    def membacaCSV(self):
+      try: 
+        modul_pembacaan = pd.read_csv(self.namaFile, delimiter= ',')
+        return modul_pembacaan
+      except OSError as err:
+        print("OS error: {0}".format(err))
+
+    # cleaning text
+    def apply_cleaning_function_to_list(self, X):
+      try:
+        cleaned_X = []
+        for element in X:
+            cleaned_X.append(parsingRequirement.clean_text(self, raw_text= element))
+        return cleaned_X
+      except OSError as err:
+        print("OS error: {0}".format(err))
+
+    def clean_text(self, raw_text):
+      try:
+        text = raw_text.lower()
+        tokens = word_tokenize(text)
+        token_words = [w for w in tokens if w.isalpha()]
+        lemma_words = [lem.lemmatize(w) for w in token_words]
+        meaningful_words = [w for w in lemma_words if not w in stops]
+        joined_words = ( " ".join(meaningful_words))
+        return joined_words
+      except OSError as err:
+        print("OS error: {0}".format(err))
+
+
+    def __del__(self):
+        print ('Destructor called.')
+
+# template class ucdReq
+class ucdReq:
+
+  #inicsialisasi
+  def __init__(self, data_aksi_aktor, tabel_usecase):
+    self.aksi_aktor = data_aksi_aktor
+    self.dt_usecase = tabel_usecase
+
+  def fulldataset(self, inputData):
+      xl = pd.ExcelFile(self.aksi_aktor)
       dfs = {sh:xl.parse(sh) for sh in xl.sheet_names}
-      kalimat = dfs[inputSRS]
+      kalimat = dfs[inputData]
       kalimat_semua = kalimat.head(len(kalimat))
       return kalimat_semua
 
-  def preprocessing(self, dataFile):
-    xl = pd.ExcelFile(dataFile)
+  def fulldataset_xmi(self, inputXMI):
+      xl = pd.ExcelFile(self.dt_usecase)
+      dfs = {sh:xl.parse(sh) for sh in xl.sheet_names}
+      kalimat = dfs[inputXMI]
+      kalimat_semua = kalimat.head(len(kalimat))
+      return kalimat_semua
+
+  def preprocessing(self):
+    xl = pd.ExcelFile(self.aksi_aktor)
     for sh in xl.sheet_names:
       df = xl.parse(sh)
-      st.write('Processing: [{}] ...'.format(sh))
-      st.write(df.head())
+      print('Processing: [{}] ...'.format(sh))
+      print(df.head())
 
-  # cleaning text
-  def apply_cleaning_function_to_list(self, X):
-      cleaned_X = []
-      for element in X:
-          cleaned_X.append(wsd_partof.clean_text(self, raw_text= element))
-      return cleaned_X
+  def useCaseWSDStopwords(self, keyword, id_keyword):
+    word_stopwords = [disambiguate(x) for x in keyword]
+    b = [len(word_tokenize(num)) for num in keyword]
+    c = max(b)
+    list_kolom = ["data{}".format(x) for x in range(0,c)]
+    word_synset_stopwords = [[n[1] for n in y] for y in word_stopwords]
+    hasilUcd_stopwords = pd.DataFrame(word_synset_stopwords, index= id_keyword, columns= list_kolom)
+    return hasilUcd_stopwords
 
-  def clean_text(self, raw_text):
-      text = raw_text.lower()
-      tokens = word_tokenize(text)
-      token_words = [w for w in tokens if w.isalpha()]
-      lemma_words = [lem.lemmatize(w) for w in token_words]
-      meaningful_words = [w for w in lemma_words if not w in stops]
-      joined_words = ( " ".join(meaningful_words))
-      return joined_words    
-      
+  #PengukuranUCD
+  def useCaseMeasurement(self, keyword1, keyword2, id1, id2):
+    hasil_wsd = []
+    for num in keyword1:
+      text = [cosine_similarity(num, angka) for angka in keyword2]
+      hasil_wsd.append(text)
+    df = pd.DataFrame(hasil_wsd, index= id1, columns= id2)
+    return df
+
+  def change_case(self, word):
+      return ''.join([' '+i.lower() if i.isupper()
+          else i for i in word]).lstrip(' ')
+
+
+  def __del__(self):
+    print ('Destructor called.')
 
 if __name__ == "__main__":
-    data_1 = st.sidebar.file_uploader("Choose a file", key= 'filePertama')
-    if data_1 is not None:
-        file1 = data_1
-    data_2 = st.sidebar.file_uploader("Choose a file", key= 'fileKedua')
-    if data_2 is not None:
-        file2 = data_2
-    data_3 = st.sidebar.file_uploader("Choose a file", key= 'fileKetiga')
-    if data_3 is not None:
-        file3 = data_3
-
-        add_selectbox = st.sidebar.selectbox(
+    # Add a selectbox to the sidebar:
+    add_selectbox = st.sidebar.selectbox(
         'Pilih modul yang anda inginkan?',
-        ('modul1', 'modul2'))
-        if(add_selectbox == 'modul2'):
-            """#modul 2: pencarian relasi melalui ukur wsd"""
+        ('modul1', 'modul2', 'modul3')
+    )
 
-            myWsd_partof = wsd_partof()
-            # myWsd_partof.preprocessing(dataFile= r'../dataset_2_split.xlsx')
+    if(add_selectbox == 'modul1'):
+      """# Modul1: xmlparser"""
+      pilih_data = st.sidebar.selectbox(
+        'Pilih file',
+        ('IRCI_Researcher.xmi', 'IRCI_Topic.xmi', 'rAnalyzerUC.xmi')
+      )
+      if (pilih_data == 'IRCI_Researcher.xmi'):
+          myXmlParser = xmlParser(filename= 'IRCI_Researcher.xmi')
+          paketElemen = myXmlParser.dataPaketElemen()
+          extendTable = myXmlParser.dataExtend()
+          ownedEndTable = myXmlParser.dataOwnedEnd()
+          ownedMemberTable = myXmlParser.dataOwnedMember()
+          
+          """
+          Berikut ini penjelasan singkat Parsing file xmi menjadi tabel2 (daftar aktor, daftar use case, dan relasi antara actor use case dan antar use case)
+          """
+          """## Membaca data actor"""
+          actorTable = paketElemen[paketElemen['type'] == 'uml:Actor']
+          st.table(actorTable)
+          """## Membaca data kasus pengguna"""
+          useCaseTable = paketElemen[paketElemen['type'] == 'uml:UseCase']
+          st.table(useCaseTable)
+          """## Membaca relasi antar kasus pengguna"""
+          st.table(extendTable)
+          """## Membaca relasi asosiasi"""
+          st.table(ownedMemberTable)
+          """## Membaca relasi property"""
+          st.table(ownedEndTable)
 
-            # file1 = r'../dataset_2.xlsx'
-            # file2 = r'../dataset_2_split.xlsx'
-            # file3 = r'../wsd_groundtruth.xlsx'
-            xl = pd.ExcelFile(file1)
-            a = [sh for sh in xl.sheet_names]
-            pilih_data = st.sidebar.selectbox(
-            'Pilih file Test', a)
-            xl2 = pd.ExcelFile(file3)
-            b = [sh for sh in xl2.sheet_names]
-            pilihan = st.sidebar.selectbox(
-            'Pilih file Groundtruth', b)
-            slider_value = st.sidebar.slider('Threhold', 0.2, 1.0, 0.3)
+          hasilAktor = []
+          hasilDestinasi = []
 
+          for idx, num in enumerate(extendTable.sourceName):
+            c = ownedMemberTable[ownedMemberTable['usecase'] == extendTable.sourceName[idx]]
+            if len(c) > 0:
+              for aktor in c.actor:
+                hasilAktor.append(aktor)
+                hasilDestinasi.append(extendTable.destinationName[idx])
+            else:
+              temp = 1
+              d = ownedMemberTable[ownedMemberTable['usecase'] == extendTable.sourceName[idx-temp]]
+              for dAktor in d.actor:
+                hasilAktor.append(dAktor)
+                hasilDestinasi.append(extendTable.destinationName[idx])
 
-            dataSRS =  pilih_data
+          df_a = pd.DataFrame([hasilAktor, hasilDestinasi], index= ['actor', 'action']).T
+          df_a['actor'] = df_a.groupby(['action'])['actor'].transform(lambda x: ';'.join(x))
+          df_a = df_a[['action','actor']].drop_duplicates()
+          df_a['actor'][2] = set(df_a['actor'][2].split(";")) # fungsi ini digunakan untuk menyempurnakan format
+          df_a['actor'][2] = ";".join(df_a['actor'][2])
+          """## Membaca relasi aktor dan kasus pengguna"""
+          st.table(df_a)
 
-            a = myWsd_partof.fulldataset(dataFile= file1, inputSRS= dataSRS)
-            list_req1 = list(a['Requirement Statement'])
-            id_req1 = list(a['ID'])
-            cleaned1 = myWsd_partof.apply_cleaning_function_to_list(X= list_req1)
+          myXmlParser.__del__()
+      elif (pilih_data == 'IRCI_Topic.xmi'):
+          myXmlParser = xmlParser(filename= 'IRCI_Topic.xmi')
+          paketElemen = myXmlParser.dataPaketElemen()
+          extendTable = myXmlParser.dataExtend()
+          ownedEndTable = myXmlParser.dataOwnedEnd()
+          ownedMemberTable = myXmlParser.dataOwnedMember()
+          
+          """
+          Berikut ini penjelasan singkat Parsing file xmi menjadi tabel2 (daftar aktor, daftar use case, dan relasi antara actor use case dan antar use case)
+          """
+          """## Membaca data actor"""
+          actorTable = paketElemen[paketElemen['type'] == 'uml:Actor']
+          st.table(actorTable)
+          """## Membaca data kasus pengguna"""
+          useCaseTable = paketElemen[paketElemen['type'] == 'uml:UseCase']
+          st.table(useCaseTable)
+          """## Membaca relasi antar kasus pengguna"""
+          st.table(extendTable)
+          """## Membaca relasi asosiasi"""
+          st.table(ownedMemberTable)
+          """## Membaca relasi property"""
+          st.table(ownedEndTable)
 
-            b = myWsd_partof.fulldataset(dataFile= file2, inputSRS= dataSRS)
-            list_req2 = list(b['Requirement Statement'])
-            id_req2 = list(b['ID'])
-            cleaned2 = myWsd_partof.apply_cleaning_function_to_list(X= list_req2)
+          hasilAktor = []
+          hasilDestinasi = []
 
-            hasil_wsd = []
-            for num in cleaned1:
-                text = [cosine_similarity(num, angka) for angka in cleaned2]
-                hasil_wsd.append(text)
+          for idx, num in enumerate(extendTable.sourceName):
+            c = ownedMemberTable[ownedMemberTable['usecase'] == extendTable.sourceName[idx]]
+            if len(c) > 0:
+              for aktor in c.actor:
+                hasilAktor.append(aktor)
+                hasilDestinasi.append(extendTable.destinationName[idx])
+            else:
+              temp = 1
+              d = ownedMemberTable[ownedMemberTable['usecase'] == extendTable.sourceName[idx-temp]]
+              for dAktor in d.actor:
+                hasilAktor.append(dAktor)
+                hasilDestinasi.append(extendTable.destinationName[idx])
 
-            data_raw = pd.DataFrame(hasil_wsd, index= id_req1, columns= id_req2)
-            st.write("Hasil pengukuran semantik antar kebutuhan atomik dan non atomik {}".format(dataSRS))
-            st.table(data_raw)
+          df_a = pd.DataFrame([hasilAktor, hasilDestinasi], index= ['actor', 'action']).T
+          df_a['actor'] = df_a.groupby(['action'])['actor'].transform(lambda x: ';'.join(x))
+          df_a = df_a[['action','actor']].drop_duplicates()
+          df_a['actor'][2] = set(df_a['actor'][2].split(";")) # fungsi ini digunakan untuk menyempurnakan format
+          df_a['actor'][2] = ";".join(df_a['actor'][2])
+          """## Membaca relasi aktor dan kasus pengguna"""
+          st.table(df_a)
 
-            # thresholding
-            threshold = slider_value
-            d = data_raw.values >= threshold
-            d1 = pd.DataFrame(d, index= id_req1, columns= id_req2)
-            mask = d1.isin([True])
-            d2 = d1.where(mask, other= 0)
-            mask2 = d1.isin([False])
-            d3 = d2.where(mask2, other= 1)
-            st.write("\nHasil ukur semantik diatas threshold {}".format(threshold))
-            st.table(d3)
+          myXmlParser.__del__()
+      elif (pilih_data == 'rAnalyzerUC.xmi'):
+          myXmlParser = xmlParser(filename= 'rAnalyzerUC.xmi')
+          paketElemen = myXmlParser.dataPaketElemen()
+          extendTable = myXmlParser.dataExtend()
+          includeTable = myXmlParser.dataInclude()
+          ownedMemberTable = myXmlParser.dataOwnedMember()
+          ownedEndTable = myXmlParser.dataOwnedEnd()
+          ownedMemberTable = myXmlParser.dataOwnedMember()
+          
+          """
+          Berikut ini penjelasan singkat Parsing file xmi menjadi tabel2 (daftar aktor, daftar use case, dan relasi antara actor use case dan antar use case)
+          """
+          """## Membaca data actor"""
+          actorTable = paketElemen[paketElemen['type'] == 'uml:Actor']
+          st.table(actorTable)
+          """## Membaca data kasus pengguna"""
+          useCaseTable = paketElemen[paketElemen['type'] == 'uml:UseCase']
+          st.table(useCaseTable)
+          """## Membaca relasi antar kasus pengguna"""
+          st.table(extendTable)
+          """## Membaca relasi asosiasi"""
+          st.table(ownedMemberTable)
+          """## Membaca relasi property"""
+          st.table(ownedEndTable)
+          """## Membaca relasi include"""
+          st.table(includeTable)
 
+          # untuk include  data ranalyzer
+          hasilAktor = []
+          hasilDestinasi = []
+          for idy, angka in enumerate(includeTable.includeName):
+            f = ownedMemberTable[ownedMemberTable.usecase == includeTable.includeName[idy]]
+            if len(f) > 0:
+              for aktor in f.actor:
+                hasilAktor.append(aktor)
+                hasilDestinasi.append(includeTable.additionName[idy])
+            else:
+              tempY = 2
+              g = ownedMemberTable[ownedMemberTable.usecase == includeTable.includeName[idy-tempY]]
+              for dAktor in g.actor:
+                hasilAktor.append(dAktor)
+                hasilDestinasi.append(includeTable.additionName[idy])
 
-            dataGT =  pilihan
-            # dataGT = 'grid3d_eval'
-            b3 = myWsd_partof.fulldataset(dataFile= file3, inputSRS= dataGT)
-            b3 = b3.drop(['Index'], axis= 1)
-            b3.index= d3.index
-            st.write("\nData Hasil Ground Truth {}".format(dataGT))
-            st.table(b3)
+          df_a = pd.DataFrame([hasilAktor, hasilDestinasi], index= ['actor', 'action']).T
+          df_a['actor'] = df_a.groupby(['action'])['actor'].transform(lambda x: ';'.join(x))
+          df_a = df_a[['action','actor']].drop_duplicates()
+          df_a['actor'][0] = set(df_a['actor'][0].split(";")) # fungsi ini digunakan untuk menyempurnakan format
+          df_a['actor'][0] = ";".join(df_a['actor'][0])
+          ownedMemberTable.rename(columns = {'usecase':'action'}, inplace = True)
+          dt_b = pd.concat([df_a, ownedMemberTable])
+          dt_actor_action = dt_b.drop(['id', 'type_property'], axis= 1)
+          """## Membaca relasi aktor dan kasus pengguna"""
+          st.table(dt_actor_action)
 
+          myXmlParser.__del__()
 
-            y_actual = d3.values.astype(int)
-            y_predicted = b3.values.astype(int)
-            st.write("akurasi", metrics.accuracy_score(y_true= y_actual, y_pred= y_predicted))
-            st.write("presion", metrics.precision_score(y_true= y_actual, y_pred= y_predicted, average= 'macro'))
-            st.write("recall", metrics.recall_score(y_true= y_actual, y_pred= y_predicted, average= 'macro'))
-            st.write("metrics {}".format(metrics.classification_report(y_true= y_actual, y_pred= y_predicted)))
+    elif(add_selectbox == 'modul2'):
+        """# Modul2: build action and actor"""
+        pilih_data = st.sidebar.selectbox(
+          'Pilih file',
+          ('freqs_researcher.txt', 'researcher_insert_metadata.txt', 'researcher_search_researcher.txt')
+        )
+        if (pilih_data == 'freqs_researcher.txt'):
+            # parsing functional
+            MyParsingRequirement = parsingRequirement(filename= "freqs_researcher.txt")
+            freqs = MyParsingRequirement.membacaCSV()
 
-        elif(add_selectbox == 'modul1'):
-            """#modul 1: parsing kebutuhan partOf"""
-            myPartOf = partOf()    # myPartOf.preprocessing()
-            hasil_srs = []
+            # pembersihan data
+            freq_requirement = freqs.requirement
+            id_freq_requirement = freqs.id
+            text_to_clean_freq = list(freq_requirement)
+            cleaned_freq = MyParsingRequirement.apply_cleaning_function_to_list(text_to_clean_freq)
 
-            xl = pd.ExcelFile(r'../dataset_2.xlsx')
-            dt_sheet = [sh for sh in xl.sheet_names]
-            pilih_data = st.sidebar.selectbox(
-            'Pilih file', dt_sheet)
+            data_aktor = []
+            data_aksi = []
+            for num in cleaned_freq:
+              a = (word_tokenize(num))
+              b = [x for x in a if x == 'submitter' or x == 'system']  
+              b1 = " ".join(b)
+              data_aktor.append(b1)
+              c = [x for x in a if x != 'submitter' and x != 'system']  
+              c1 = " ".join(c)
+              data_aksi.append(c1)
 
-            # dataSRS = '2005 - Grid 3D'
-            dataSRS = pilih_data
-            a = myPartOf.fulldataset(dataSRS)
-            for idx, num in zip(a['ID'], a['Requirement Statement']):
-                data = [x8 for x in num.split("(i.e., black on white background)") 
-                            for x1 in x.split(":\n") for x2 in x1.split("(") 
-                            for x3 in x2.split(".)") for x4 in x3.split(")") 
-                            for x5 in x4.split(".")for x6 in x5.split(", so")  
-                            for x7 in x6.split(",") for x8 in x7.split("and") ]
-                hasil_srs.append([idx, data])
-            a_df = pd.DataFrame(hasil_srs, columns = ['ID', 'Data'])
-            """## Dataset partOf"""
-            st.write("data {}".format(dataSRS))
-            st.table(a_df)
+            freqs['aksi'] = data_aksi
+            freqs['aktor'] = data_aktor
+            """## Membaca kebutuhan fungsional"""
+            st.table(freqs)
 
-            # detailing
-            idx = 7
-            idy = 1
-            hasil_split = hasil_srs[idx][idy]
-            x = hasil_split[3].replace("move", "")
-            hasil_splita = hasil_split[1] + x
-            hasil_splitb = hasil_split[2] + x
-            hasil_splitc = hasil_split[3]
-            myTuple = [hasil_split[0], hasil_splita, hasil_splitb, hasil_splitc]
-            hasil_join = ",".join(myTuple)
+        elif (pilih_data == 'researcher_insert_metadata.txt'):
+            # parsing ucd1
+            MyParsingRequirement = parsingRequirement(filename= "researcher_insert_metadata.txt")
+            ucd1 = MyParsingRequirement.membacaCSV()
+            data_ucd1 = []
+            for num in ucd1.flowOfEvents.fillna("empty"):
+              for num1 in num.split(";"):
+                for num2 in num1.split("."):
+                  if 'Submitter' in num2:
+                    data_ucd1.append(num2)
+                  elif 'system' in num2:
+                    data_ucd1.append(num2)
+                  elif 'empty' in num2:
+                    data_ucd1.append(num2)
 
-            st.write("data dari {}".format(hasil_srs[idx][0]))
-            for xi in hasil_join.split(","): 
-                st.write("\n{}".format(xi))
-                # myPartOf.stanfordConstituencyparsing(xi) #drive parsing
-                # myPartOf.parsing(xi) #online parsing
+            list_index= [("data{}".format(idx)) for idx, num in enumerate(data_ucd1)]
+            data_list = pd.DataFrame(data_ucd1, index= list_index)
+            data_list = data_list.drop(index= "data5").reset_index().drop(labels= ['index'], axis= 1)
+            ucd1['aksi'] = data_list
+
+            ucd1_req = ucd1.aksi
+            id_ucd1_req = ucd1.id
+            text_to_clean_freq = list(ucd1_req)
+            cleaned1_ucd = MyParsingRequirement.apply_cleaning_function_to_list(text_to_clean_freq)
+
+            data_aktor = []
+            data_aksi = []
+            for num in cleaned1_ucd:
+              a = (word_tokenize(num))
+              b = [x for x in a if x == 'submitter' or x == 'system']  
+              b1 = " ".join(b)
+              data_aktor.append(b1)
+              c = [x for x in a if x != 'submitter' and x != 'system']  
+              c1 = " ".join(c)
+              data_aksi.append(c1)
+
+            ucd1['aksi'] = data_aksi
+            ucd1['aktor'] = data_aktor
+            """## Membaca kasus penggunaan (UCD1)"""
+            st.table(ucd1)
+
+        elif (pilih_data == 'researcher_search_researcher.txt'):
+            # parsing ucd2
+            MyParsingRequirement = parsingRequirement(filename= "researcher_search_researcher.txt")
+            ucd2 = MyParsingRequirement.membacaCSV()
+
+            #variable
+            data_ucd2 = []
+            for num in ucd2.flowOfEvents.fillna("empty"):
+              for num1 in num.split(";"):
+                for num2 in num1.split("."):
+                  if 'Submitter' in num2:
+                    data_ucd2.append(num2)
+                  elif 'system' in num2:
+                    data_ucd2.append(num2)
+                  elif 'actor' in num2:
+                    data_ucd2.append(num2)
+                  elif 'empty' in num2:
+                    data_ucd2.append(num2)
+
+            list2_index= [("data{}".format(idx)) for idx, num in enumerate(data_ucd2)]
+            data2_list = pd.DataFrame(data_ucd2, index= list2_index)
+            data2_list = data2_list.reset_index().drop(labels= ['index'], axis= 1)
+            ucd2['aksi'] = data2_list
+
+            ucd2_req = ucd2.aksi
+            id_ucd2_req = ucd2.id
+            text_to_clean_freq = list(ucd2_req)
+            cleaned2_ucd = MyParsingRequirement.apply_cleaning_function_to_list(text_to_clean_freq)
+
+            data2_aktor = []
+            data2_aksi = []
+            for num in cleaned2_ucd:
+              a = (word_tokenize(num))
+              b = [x for x in a if x == 'submitter' or x == 'system' or x == 'actor']  
+              b1 = " ".join(b)
+              b1 = b1.replace("actor", "submitter; viewer")
+              data2_aktor.append(b1)
+              c = [x for x in a if x != 'submitter' and x != 'system' and x != 'actor']  
+              c1 = " ".join(c)
+              data2_aksi.append(c1)
+
+            ucd2['aksi'] = data2_aksi
+            ucd2['aktor'] = data2_aktor
+            
+            """## Membaca kasus penggunaan (UCD2)"""
+            st.table(ucd2)
+
+    elif(add_selectbox == 'modul3'):
+      """# Modul3: pencarian relasi"""
+      pilih_data = st.sidebar.selectbox(
+      'Pilih file',
+      ('freq_ucd1', 'freq_ucd1', 'all'))
+
+      MyucdReq = ucdReq(data_aksi_aktor= r'data_aksi_aktor.xlsx', tabel_usecase= r'data_xmi.xlsx')
+      tabel_freq =  'tabel_freqs'
+      freqs = MyucdReq.fulldataset(inputData= tabel_freq)
+      tabel_ucd1 =  'tabel_ucd1'
+      ucd1 = MyucdReq.fulldataset(inputData= tabel_ucd1)
+      tabel_ucd2 =  'tabel_ucd2'
+      ucd2 = MyucdReq.fulldataset(inputData= tabel_ucd2)
+      if (pilih_data == 'freq_ucd1'):
+          ucd1= ucd1.dropna()
+          tbl_1 = MyucdReq.useCaseMeasurement(keyword1= freqs.aksi, keyword2=ucd1.aksi , id1= freqs.id, id2= ucd1.usecase)
+          """## Data Pengukuran antara functional dan ucd1"""
+          st.table(tbl_1)
+
+      elif (pilih_data == 'freq_ucd1'):
+          ucd2= ucd2.dropna()
+          tbl_2 = MyucdReq.useCaseMeasurement(keyword1= freqs.aksi, keyword2=ucd2.aksi , id1= freqs.id, id2= ucd2.usecase)
+          """## Data Pengukuran antara functional dan ucd2"""
+          st.table(tbl_2)
+
+      elif (pilih_data == 'all'):
+          ucd1= ucd1.dropna()
+          tbl_1 = MyucdReq.useCaseMeasurement(keyword1= freqs.aksi, keyword2=ucd1.aksi , id1= freqs.id, id2= ucd1.usecase)
+          ucd2= ucd2.dropna()
+          tbl_2 = MyucdReq.useCaseMeasurement(keyword1= freqs.aksi, keyword2=ucd2.aksi , id1= freqs.id, id2= ucd2.usecase)
+          tbl_3 = pd.concat([tbl_1, tbl_2], axis= 1)
+          """## Data Pengukuran Gabungan kedua tabel"""
+          st.table(tbl_3)

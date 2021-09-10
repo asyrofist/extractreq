@@ -3,5 +3,5 @@ pandas
 nltk
 pywsd
 wn==0.0.22
-stanfordcorenlp
 sklearn
+stanfordcorenlp

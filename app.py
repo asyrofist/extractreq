@@ -36,8 +36,8 @@ Original file is located at
 
 class partOf: #template
 
-  def __init__(self, inputData  = r'../dataset_2.xlsx', 
-               dataStanford     = r'E:\\stanford-corenlp-4.0.0',
+  def __init__(self, inputData  = r'https://docs.google.com/spreadsheets/d/1Xkvdqfaxc_r0C0ipuJ3viGYfYj6Vd94H/edit?usp=sharing&ouid=114591885211797833190&rtpof=true&sd=true', 
+               dataStanford     = r'https://drive.google.com/drive/folders/1_CdTdX8H-HWcqkN5_6Q-AFd_KH2Rk11P?usp=sharing',
                urlStanford      = 'http://corenlp.run/'):
     self.data         = inputData
     self.dataTag      = dataStanford

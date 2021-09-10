@@ -10,6 +10,11 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize 
 from nltk.stem.wordnet import WordNetLemmatizer
 
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('averaged_perceptron_tagger')
+
 # library untuk modul 3
 from nltk.tokenize import word_tokenize 
 from pywsd import disambiguate

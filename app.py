@@ -1,4 +1,5 @@
 import streamlit as st
+import nltk
 
 # library untuk modul 1
 import xml.etree.ElementTree as ET

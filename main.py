@@ -24,7 +24,8 @@ stops = set(stopwords.words("english"))
 lem = WordNetLemmatizer()
 
 # -*- coding: utf-8 -*-
-"""modul_partof_(ekspart)
+"""
+Modul Ekstraksi partOf (Ekspart)
 
 Author Rakha Asyrofi / 0511195001038
 

@@ -18,6 +18,11 @@ from nltk.stem.wordnet import WordNetLemmatizer
 from sklearn import metrics
 from sklearn.metrics import confusion_matrix
 
+nltk.download('averaged_perceptron_tagger')
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
+
 stops = set(stopwords.words("english"))
 lem = WordNetLemmatizer()
 

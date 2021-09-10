@@ -2,7 +2,6 @@ import streamlit as st
 
 # library untuk modul 1
 import pandas as pd
-from tabulate import tabulate
 from stanfordcorenlp import StanfordCoreNLP
 from nltk.parse.corenlp import CoreNLPParser
 

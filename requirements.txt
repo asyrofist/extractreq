@@ -1,0 +1,6 @@
+pandas
+stanfordcorenlp
+nltk
+pywsd
+wn==0.0.22
+sklearn

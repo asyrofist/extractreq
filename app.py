@@ -194,7 +194,7 @@ class parsingRequirement:
 class ucdReq:
 
   #inicsialisasi
-  def __init__(self, data_aksi_aktor, tabel_usecase):
+  def __init__(self, data_aksi_aktor= r'data/data_aksi_aktor.xlsx', tabel_usecase= r'data/data_xmi.xlsx'):
     self.aksi_aktor = data_aksi_aktor
     self.dt_usecase = tabel_usecase
 
@@ -537,7 +537,7 @@ if __name__ == "__main__":
       'Pilih file',
       ('freq_ucd1', 'freq_ucd1', 'all'))
 
-      MyucdReq = ucdReq(data_aksi_aktor= r'data/data_aksi_aktor.xlsx', tabel_usecase= r'data/data_xmi.xlsx')
+      MyucdReq = ucdReq()
       tabel_freq =  'tabel_freqs'
       freqs = MyucdReq.fulldataset(inputData= tabel_freq)
       tabel_ucd1 =  'tabel_ucd1'

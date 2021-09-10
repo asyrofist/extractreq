@@ -120,9 +120,6 @@ if __name__ == "__main__":
             myWsd_partof = wsd_partof()
             # myWsd_partof.preprocessing(dataFile= r'../dataset_2_split.xlsx')
 
-            # file1 = r'../dataset_2.xlsx'
-            # file2 = r'../dataset_2_split.xlsx'
-            # file3 = r'../wsd_groundtruth.xlsx'
             xl = pd.ExcelFile(file1)
             a = [sh for sh in xl.sheet_names]
             pilih_data = st.sidebar.selectbox(
@@ -188,7 +185,7 @@ if __name__ == "__main__":
             myPartOf = partOf()    # myPartOf.preprocessing()
             hasil_srs = []
 
-            xl = pd.ExcelFile(r'../dataset_2.xlsx')
+            xl = pd.ExcelFile(r'data/dataset_2.xlsx')
             dt_sheet = [sh for sh in xl.sheet_names]
             pilih_data = st.sidebar.selectbox(
             'Pilih file', dt_sheet)

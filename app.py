@@ -259,7 +259,7 @@ if __name__ == "__main__":
         ('IRCI_Researcher.xmi', 'IRCI_Topic.xmi', 'rAnalyzerUC.xmi')
       )
       if (pilih_data == 'IRCI_Researcher.xmi'):
-          myXmlParser = xmlParser(filename= 'IRCI_Researcher.xmi')
+          myXmlParser = xmlParser(filename= 'data/IRCI_Researcher.xmi')
           paketElemen = myXmlParser.dataPaketElemen()
           extendTable = myXmlParser.dataExtend()
           ownedEndTable = myXmlParser.dataOwnedEnd()

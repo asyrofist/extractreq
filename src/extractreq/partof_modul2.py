@@ -53,17 +53,12 @@ class wsd_partof:
 if __name__ == "__main__":
   try:
       myWsd_partof = wsd_partof()
-      # myWsd_partof.preprocessing(dataFile= r'data/dataset_2_split.xlsx')
-
-      file1 = r'data/dataset_2.xlsx'
-      dataSRS =  '2005 - Grid 3D'
-      a = myWsd_partof.fulldataset(dataFile= file1, inputSRS= dataSRS)
+      a = myWsd_partof.fulldataset(dataFile, inputSRS)
       list_req1 = list(a['Requirement Statement'])
       id_req1 = list(a['ID'])
       cleaned1 = myWsd_partof.apply_cleaning_function_to_list(X= list_req1)
 
-      file2 = r'data/dataset_2_split.xlsx'
-      b = myWsd_partof.fulldataset(dataFile= file2, inputSRS= dataSRS)
+      b = myWsd_partof.fulldataset(dataFile, inputSRS)
       list_req2 = list(b['Requirement Statement'])
       id_req2 = list(b['ID'])
       cleaned2 = myWsd_partof.apply_cleaning_function_to_list(X= list_req2)
@@ -78,14 +73,11 @@ if __name__ == "__main__":
       print(tabulate(data_raw, headers = 'keys', tablefmt = 'psql'))   
 
       # thresholding
-      th = 0.2
       data_threshold = myWsd_partof.threshold_value(data_raw, th, id_req1, id_req2)
       print("\nHasil ukur semantik diatas threshold {}".format(th))
       print(tabulate(data_threshold, headers = 'keys', tablefmt = 'psql'))   
 
-      file3 = r'data/wsd_groundtruth.xlsx'
-      dataGT = 'grid3d_eval'
-      b3 = myWsd_partof.fulldataset(dataFile= file3, inputSRS= dataGT)
+      b3 = myWsd_partof.fulldataset(dataFile, inputSRS)
       b3 = b3.drop(['Index'], axis= 1)
       b3.index= data_threshold.index
       print("\nData Hasil Ground Truth {}".format(dataGT))

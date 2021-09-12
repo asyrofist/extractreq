@@ -51,7 +51,6 @@ if __name__ == "__main__":
   try:
     myPartOf = partOf()    # myPartOf.preprocessing()
     hasil_srs = []
-    dataSRS = '2005 - Grid 3D'
     a = myPartOf.fulldataset(dataSRS)
     for idx, num in zip(a['ID'], a['Requirement Statement']):
         data = [x8 for x in num.split("(i.e., black on white background)") 
@@ -65,8 +64,6 @@ if __name__ == "__main__":
     print(tabulate(a_df, headers = 'keys', tablefmt = 'psql'))
 
     # detailing
-    idx = 7
-    idy = 1
     hasil_split = hasil_srs[idx][idy]
     x = hasil_split[3].replace("move", "")
     hasil_splita = hasil_split[1] + x

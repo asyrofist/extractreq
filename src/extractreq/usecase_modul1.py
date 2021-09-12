@@ -19,7 +19,7 @@ from tabulate import tabulate
 class xmlParser:
 
     # inisialisasi
-    def __init__(self, filename= 'data/IRCI_Researcher.xmi', 
+    def __init__(self, filename, 
                  tipe_xmi= '{http://schema.omg.org/spec/XMI/2.1}type',
                  id_xmi= '{http://schema.omg.org/spec/XMI/2.1}id'):
     	self.namaFile = filename
@@ -196,9 +196,6 @@ class xmlParser:
 
 if __name__ == "__main__":
   try:
-      # myXmlParser = xmlParser(filename= 'data/IRCI_Topic.xmi')
-      # myXmlParser = xmlParser(filename= 'data/IRCI_Researcher.xmi')
-      # myXmlParser = xmlParser(filename= 'data/rAnalyzerUC.xmi')
       myXmlParser = xmlParser()
       paketElemen = myXmlParser.dataPaketElemen()
       extendTable = myXmlParser.dataExtend()
@@ -255,37 +252,6 @@ if __name__ == "__main__":
       dt_actor_action = dt_actor_action[['action','actor']].drop_duplicates()
       print("\nactorActionTable")
       print(tabulate(dt_actor_action, headers = 'keys', tablefmt = 'psql'))
-
-      # print("\nincludeTable")
-      # print(tabulate(includeTable, headers = 'keys', tablefmt = 'psql'))
-
-      # # untuk include  data ranalyzer
-      # hasilAktor = []
-      # hasilDestinasi = []
-      # for idy, angka in enumerate(includeTable.includeName):
-      #   f = ownedMemberTable[ownedMemberTable.usecase == includeTable.includeName[idy]]
-      #   if len(f) > 0:
-      #     for aktor in f.actor:
-      #       hasilAktor.append(aktor)
-      #       hasilDestinasi.append(includeTable.additionName[idy])
-      #   else:
-      #     tempY = 2
-      #     g = ownedMemberTable[ownedMemberTable.usecase == includeTable.includeName[idy-tempY]]
-      #     for dAktor in g.actor:
-      #       hasilAktor.append(dAktor)
-      #       hasilDestinasi.append(includeTable.additionName[idy])
-
-      # df_a = pd.DataFrame([hasilAktor, hasilDestinasi], index= ['actor', 'action']).T
-      # df_a['actor'] = df_a.groupby(['action'])['actor'].transform(lambda x: ';'.join(x))
-      # df_a = df_a[['action','actor']].drop_duplicates()
-      # df_a['actor'][0] = set(df_a['actor'][0].split(";")) # fungsi ini digunakan untuk menyempurnakan format
-      # df_a['actor'][0] = ";".join(df_a['actor'][0])
-      # ownedMemberTable.rename(columns = {'usecase':'action'}, inplace = True)
-      # dt_b = pd.concat([df_a, ownedMemberTable])
-      # dt_actor_action = dt_b.drop(['id', 'type_property'], axis= 1)
-      # print("\nactorActionTable")
-      # print(tabulate(dt_actor_action, headers = 'keys', tablefmt = 'psql'))      
-
       myXmlParser.__del__()
 
   except OSError as err:

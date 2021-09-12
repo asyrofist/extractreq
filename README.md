@@ -39,8 +39,15 @@ instalasi melalui pypi:
 
 ```python
 from extractreq.partof_modul1 import partOf
-myPart = partOf(inputData= 'dataset.xlsx')
+myPart = partOf(inputData= 'dataset.xlsx', dataStanford= 'stanford-corenlp-4.0.0', urlStanford= ''http://corenlp.run/'')
 myPart.preprocessing()
+# Processing: [0000 - cctns] ...
+    ID                              Requirement Statement  kalimat
+0  F01   The system should support multilingual interface      NaN
+1  F02  The system should be designed in manner that o...      NaN
+2  F03  The system should work even in an offline mode...      NaN
+3  F04  The system should be designed to have satisfac...      NaN
+4  F05  The system should be implemented using service...      NaN
 ```
 
 Check out: https://youtu.be/-d96h9mhh9s

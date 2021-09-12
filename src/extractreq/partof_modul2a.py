@@ -94,17 +94,13 @@ class ukur_partOf_alternatif:
 if __name__ == "__main__":
   try:
       myUkur = ukur_partOf_alternatif()
-      file1 = r'data/dataset_2.xlsx'
-      file2 = r'data/dataset_2_split.xlsx'
-      dataSRS =  '2004 - colorcast'
-
-      a = myUkur.fulldataset(data= file1, inputSRS= dataSRS)
+      a = myUkur.fulldataset(data, inputSRS)
       list_req1 = list(a['Requirement Statement'])
       id_req1 = list(a['ID'])
       cleaned1 = myUkur.apply_cleaning_function_to_list(X= list_req1)
       synsets1 = [myUkur.doc_to_synsets(x) for x in cleaned1]
 
-      b = myUkur.fulldataset(data= file2, inputSRS= dataSRS)
+      b = myUkur.fulldataset(data, inputSRS)
       list_req2 = list(b['Requirement Statement'])
       id_req2 = list(b['ID'])
       cleaned2 = myUkur.apply_cleaning_function_to_list(X= list_req2)
@@ -126,7 +122,7 @@ if __name__ == "__main__":
         data_list.append(a)
 
       print("\ndata berdasarkan dokumen")
-      df_b = pd.DataFrame(data_list, index= id_req1, columns= id_req2)
+      df_b = pd.DataFrame(data_list, index, columns)
       print(tabulate(df_b, headers = 'keys', tablefmt = 'psql'))   
 
       word1 = [disambiguate(x) for x in cleaned1]

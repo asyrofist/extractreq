@@ -10,9 +10,6 @@ Original file is located at
 
 """# Modul3: pencarian relasi"""
 
-# !pip install -U pywsd
-# !pip install -U wn==0.0.23
-
 from os import name
 import pandas as pd
 from nltk.tokenize import word_tokenize 
@@ -78,13 +75,10 @@ class ucdReq:
 if __name__ == "__main__":
   try:
       # data dari txt
-      MyucdReq = ucdReq(data_aksi_aktor= r'data_aksi_aktor.xlsx', tabel_usecase= r'data_xmi.xlsx')
-      tabel_freq =  'tabel_freqs'
-      freqs = MyucdReq.fulldataset(inputData= tabel_freq)
-      tabel_ucd1 =  'tabel_ucd1'
-      ucd1 = MyucdReq.fulldataset(inputData= tabel_ucd1)
-      tabel_ucd2 =  'tabel_ucd2'
-      ucd2 = MyucdReq.fulldataset(inputData= tabel_ucd2)
+      MyucdReq = ucdReq(data_aksi_aktor, tabel_usecase)
+      freqs = MyucdReq.fulldataset(inputData)
+      ucd1 = MyucdReq.fulldataset(inputData)
+      ucd2 = MyucdReq.fulldataset(inputData)
 
       tbl_1 = MyucdReq.useCaseMeasurement(keyword1= freqs.aksi, keyword2=ucd1.aksi , id1= freqs.id, id2= ucd1.usecase)
       tbl_1.rename(columns = {'insertMetadata':'UC01', 'searchArticle':'UC03', 'viewNextResult':'UC04'}, inplace = True)
@@ -115,7 +109,6 @@ if __name__ == "__main__":
       print("\nData filter maksmimum")
       print(tabulate(df_filter, headers = 'keys', tablefmt = 'psql'))
 
-      threshold = 0.3
       d = df_filter.values >= threshold
       d1 = pd.DataFrame(d, index= df_filter.index, columns= df_filter.columns)
       mask = d1.isin([True])
@@ -127,8 +120,7 @@ if __name__ == "__main__":
       print(tabulate(tbl_4, headers = 'keys', tablefmt = 'psql'))
 
       # data dari xmi
-      namaUsecase =  'tabel_usecase'
-      useCaseTable  = MyucdReq.fulldataset_xmi(inputXMI= namaUsecase)
+      useCaseTable  = MyucdReq.fulldataset_xmi(inputXMI)
       data_ucd = []
       for num in useCaseTable.name:
         data_ucd.append(MyucdReq.change_case(num))
@@ -139,7 +131,6 @@ if __name__ == "__main__":
       print("\nData hasil relasi antara kebutuhan dan kasus penggunaan (xmi)")
       print(tabulate(tbl_1x, headers = 'keys', tablefmt = 'psql'))
 
-      threshold_kedua = 0.6
       dt = tbl_1x.values >= threshold_kedua
       dt1 = pd.DataFrame(dt, index= tbl_1x.index, columns= tbl_1x.columns)
       mask = dt1.isin([True])

@@ -1,6 +1,6 @@
 # Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
 
-Author  | [Rakha Asyrofi](http://codetrips.com)
+Author  | [Rakha Asyrofi](https://scholar.google.com/citations?user=WN9T5UUAAAAJ&hl=id&oi=ao)
  -------|-----------
 Version | 0.0.5
 Updated | 2021-09-12

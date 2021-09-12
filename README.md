@@ -1,7 +1,23 @@
 # Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
+
+Author  | [Rakha Asyrofi](http://codetrips.com)
+ -------|-----------
+Version | 0.0.5
+Updated | 2021-09-12
+
+# overview
 [live_demo](https://share.streamlit.io/asyrofist/extraction-requirement/main/app.py) How to make Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
+Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing described in our Proceeding Conference at [ISRITI2020](https://ieeexplore.ieee.org/document/9315489). Please kindly cite the following paper when you use this tool. It would also be appreciated if you send me a courtesy [website](https://www.researchgate.net/profile/Rakha_Asyrofi) and [google scholar](https://scholar.google.com/citations?user=WN9T5UUAAAAJ&hl=id&oi=ao), so I could survey what kind of tasks the tool is used for. 
 
 Developed by Asyrofi (c) 2021
+
+## installation
+
+Install directly from PyPi:
+
+    pip install extractreq
+
+
 ## Cara menggunakan program
 
 ```python
@@ -12,10 +28,9 @@ myPart.preprocessing()
 
 Check out: https://youtu.be/-d96h9mhh9s
 
-![Example of live coding an app in Streamlit|635x380](https://github.com/asyrofist/Extraction-Requirement/blob/main/streamlit-app-2021-09-11-02-09-60%20(3).gif)
+![extraction_req](https://github.com/asyrofist/Extraction-Requirement/blob/main/streamlit-app-2021-09-11-02-09-60%20(3).gif)
 
 
-Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing described in our Proceeding Conference at [ISRITI2020](https://ieeexplore.ieee.org/document/9315489). Please kindly cite the following paper when you use this tool. It would also be appreciated if you send me a courtesy [website](https://www.researchgate.net/profile/Rakha_Asyrofi) and [google scholar](https://scholar.google.com/citations?user=WN9T5UUAAAAJ&hl=id&oi=ao), so I could survey what kind of tasks the tool is used for. 
 ```
 @INPROCEEDINGS{9315489,  
   author={R. {Asyrofi} and D. O. {Siahaan} and Y. {Priyadi}},  

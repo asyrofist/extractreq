@@ -28,9 +28,9 @@ Extraction Dependency Based on Evolutionary Requirement Using Natural Language P
 
 Developed by Asyrofi (c) 2021
 
-## installation
+## Cara menginstal
 
-Install directly from PyPi:
+instalasi melalui pypi:
 
     pip install extractreq
 

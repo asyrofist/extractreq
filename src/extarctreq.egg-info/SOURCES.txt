@@ -1,0 +1,15 @@
+LICENSE
+README.md
+pyproject.toml
+setup.py
+src/extarctreq.egg-info/PKG-INFO
+src/extarctreq.egg-info/SOURCES.txt
+src/extarctreq.egg-info/dependency_links.txt
+src/extarctreq.egg-info/top_level.txt
+src/extractreq/__init__.py
+src/extractreq/partof_modul1.py
+src/extractreq/partof_modul2.py
+src/extractreq/partof_modul2a.py
+src/extractreq/usecase_modul1.py
+src/extractreq/usecase_modul2.py
+src/extractreq/usecase_modul3.py

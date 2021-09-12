@@ -1,16 +1,22 @@
+Metadata-Version: 2.1
+Name: extarctreq
+Version: 0.0.5
+Summary: Berikut ini deskripsi singkat pembuatan ekstraksi kebutuhan
+Home-page: https://github.com/asyrofist/Extraction-Requirement
+Author: asyrofist (Rakha Asyrofi)
+Author-email: rakhasyrofist@gmail.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/asyrofist/Extraction-Requirement/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
 # Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
 [live_demo](https://share.streamlit.io/asyrofist/extraction-requirement/main/app.py) How to make Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
-
-Developed by Asyrofi (c) 2021
-## Cara menggunakan program
-
-```python
-from extractreq.partof_modul1 import partOf
-myPart = partOf(inputData= 'dataset.xlsx')
-myPart.preprocessing()
-```
-
-Check out: https://youtu.be/-d96h9mhh9s
 
 ![Example of live coding an app in Streamlit|635x380](https://github.com/asyrofist/Extraction-Requirement/blob/main/streamlit-app-2021-09-11-02-09-60%20(3).gif)
 
@@ -31,3 +37,5 @@ Extraction Dependency Based on Evolutionary Requirement Using Natural Language P
   doi={10.1109/ISRITI51436.2020.9315489}}
   ISBN = "978-1-7281-8406-7",
 ```
+
+

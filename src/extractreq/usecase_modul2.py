@@ -83,7 +83,7 @@ if __name__ == "__main__":
   try:
 
     # parsing functional
-    MyParsingRequirement = parsingRequirement(filename= "data/freqs_researcher.txt")
+    MyParsingRequirement = parsingRequirement(filename)
     freqs = MyParsingRequirement.membacaCSV()
     data_freqs = MyParsingRequirement.data_raw(freqs.requirement)
 
@@ -106,7 +106,7 @@ if __name__ == "__main__":
     print(tabulate(freqs, headers = 'keys', tablefmt = 'psql'))
 
     # parsing ucd1
-    MyParsingRequirement = parsingRequirement(filename= "data/researcher_insert_metadata.txt")
+    MyParsingRequirement = parsingRequirement(filename)
     ucd1 = MyParsingRequirement.membacaCSV()
     data_ucd1 = MyParsingRequirement.data_raw(ucd1.flowOfEvents)
 
@@ -133,7 +133,7 @@ if __name__ == "__main__":
     print(tabulate(ucd1, headers = 'keys', tablefmt = 'psql'))
 
     # parsing ucd2
-    MyParsingRequirement = parsingRequirement(filename= "data/researcher_search_researcher.txt")
+    MyParsingRequirement = parsingRequirement(filename)
     ucd2 = MyParsingRequirement.membacaCSV()
     data_ucd2 = MyParsingRequirement.data_raw(ucd2.flowOfEvents)
 

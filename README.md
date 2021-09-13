@@ -9,6 +9,34 @@ Updated | 2021-09-12
 [live_demo](https://share.streamlit.io/asyrofist/extraction-requirement/main/app.py) How to make Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
 
 Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing described in our Proceeding Conference at [ISRITI2020](https://ieeexplore.ieee.org/document/9315489). Please kindly cite the following paper when you use this tool. It would also be appreciated if you send me a courtesy [website](https://www.researchgate.net/profile/Rakha_Asyrofi) and [google scholar](https://scholar.google.com/citations?user=WN9T5UUAAAAJ&hl=id&oi=ao), so I could survey what kind of tasks the tool is used for. 
+
+Developed by Asyrofi (c) 2021
+
+## How to install
+
+installation using pypi:
+
+    pip install extractreq
+
+## How to use
+
+```python
+from extractreq.partof_modul1 import partOf
+myPart = partOf(inputData= 'dataset.xlsx', # dataset
+                dataStanford= 'stanford-corenlp-4.0.0',  #diambil dari https://stanfordnlp.github.io/CoreNLP/download.html
+                urlStanford= 'http://corenlp.run/')
+myPart.preprocessing()
+myPart.fulldataset(inputData= '2005 - Grid 3D')
+myPart.parsing(data)
+myPart.stanfordPostag(data)
+```
+
+Check out: https://youtu.be/-d96h9mhh9s
+
+## Citation
+
+If you find this repository useful for your research, please use the following.
+
 ```
 @INPROCEEDINGS{9315489,  
   author={R. {Asyrofi} and D. O. {Siahaan} and Y. {Priyadi}},  
@@ -24,30 +52,6 @@ Extraction Dependency Based on Evolutionary Requirement Using Natural Language P
   doi={10.1109/ISRITI51436.2020.9315489}}
   ISBN = "978-1-7281-8406-7",
 ```
-
-Developed by Asyrofi (c) 2021
-
-## Cara menginstal
-
-instalasi melalui pypi:
-
-    pip install extractreq
-
-
-## Cara menggunakan program
-
-```python
-from extractreq.partof_modul1 import partOf
-myPart = partOf(inputData= 'dataset.xlsx', # dataset
-                dataStanford= 'stanford-corenlp-4.0.0',  #diambil dari https://stanfordnlp.github.io/CoreNLP/download.html
-                urlStanford= 'http://corenlp.run/')
-myPart.preprocessing()
-myPart.fulldataset(inputData= '2005 - Grid 3D')
-myPart.parsing(data)
-myPart.stanfordPostag(data)
-```
-
-Check out: https://youtu.be/-d96h9mhh9s
 
 
 

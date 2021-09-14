@@ -6,3 +6,4 @@ wn==0.0.22
 sklearn
 stanfordcorenlp
 openpyxl
+myst-parser

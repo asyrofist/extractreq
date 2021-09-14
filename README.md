@@ -1,29 +1,24 @@
-Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
-========
+# Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
 
 Author  | [Rakha Asyrofi](https://scholar.google.com/citations?user=WN9T5UUAAAAJ&hl=id&oi=ao)
  -------|-----------
 Version | 0.0.1
 Updated | 2021-09-12
 
-overview
---------
-
+# overview
 [live_demo](https://share.streamlit.io/asyrofist/extraction-requirement/main/app.py) How to make Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
 
 Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing described in our Proceeding Conference at [ISRITI2020](https://ieeexplore.ieee.org/document/9315489). Please kindly cite the following paper when you use this tool. It would also be appreciated if you send me a courtesy [website](https://www.researchgate.net/profile/Rakha_Asyrofi) and [google scholar](https://scholar.google.com/citations?user=WN9T5UUAAAAJ&hl=id&oi=ao), so I could survey what kind of tasks the tool is used for. 
 
 Developed by Asyrofi (c) 2021
 
-How to install
---------
+## How to install
 
 installation using pypi:
 
     pip install extractreq
 
-Look how easy it is to use:
---------
+## Look how easy it is to use:
 
 ```python
 from extractreq.partof_modul1 import partOf
@@ -38,25 +33,20 @@ myPart.stanfordPostag(data)
 
 Check out: https://youtu.be/-d96h9mhh9s
 
-Features
---------
-
+## Features
 - Dapat digunakan untuk mengekstraksi kebergantungan kebutuhan
 - Dapat digunakan untuk mencari relasi kebergantungan kebutuhan
 
-Contribute
---------
+## Contribute
 
 - Issue Tracker: https://github.com/asyrofist/Extraction-Requirement/issues
 - Source Code: https://github.com/asyrofist/Extraction-Requirement
 
-Support
---------
+## Support
 
 If you are having issues, please let us know. We have a mailing list located at: asyrofi.19051@mhs.its.ac.id
 
-Citation
---------
+## Citation
 
 If you find this repository useful for your research, please use the following.
 
@@ -76,9 +66,6 @@ If you find this repository useful for your research, please use the following.
   ISBN = "978-1-7281-8406-7",
 ```
 
-License
---------
+## License
 
 The project is licensed under the MIT License
-
-

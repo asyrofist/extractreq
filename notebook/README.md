@@ -18,7 +18,7 @@ installation using pypi:
 
     pip install extractreq
 
-## Look how easy it is to use:
+## How to use
 
 ```python
 from extractreq.partof_modul1 import partOf
@@ -32,19 +32,6 @@ myPart.stanfordPostag(data)
 ```
 
 Check out: https://youtu.be/-d96h9mhh9s
-
-## Features
-- Dapat digunakan untuk mengekstraksi kebergantungan kebutuhan
-- Dapat digunakan untuk mencari relasi kebergantungan kebutuhan
-
-## Contribute
-
-- Issue Tracker: https://github.com/asyrofist/Extraction-Requirement/issues
-- Source Code: https://github.com/asyrofist/Extraction-Requirement
-
-## Support
-
-If you are having issues, please let us know. We have a mailing list located at: asyrofi.19051@mhs.its.ac.id
 
 ## Citation
 
@@ -66,8 +53,5 @@ If you find this repository useful for your research, please use the following.
   ISBN = "978-1-7281-8406-7",
 ```
 
-## License
-
-The project is licensed under the MIT License
 
 

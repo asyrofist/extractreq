@@ -4,7 +4,7 @@
 Install
 =======
 
-Install SIMPLE-NN
+Instalasi Extraksi Kebergantungan Kebutuhan
 =================
 SIMPLE-NN is tested and supported on the following versions of Python:
 

@@ -46,7 +46,7 @@ master_doc = 'index'
 # General information about the project.
 project = u'Extraction Requirement'
 copyright = u'2021, Read the Docs'
-author = u'Rakha Asyrofi, Daniel Oranova Siahaan, Yudi Priyadi
+author = u'Rakha Asyrofi, Daniel Oranova Siahaan, Yudi Priyadi'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

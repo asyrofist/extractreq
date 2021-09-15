@@ -1,46 +1,44 @@
 Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
 =========================================================================================
 
-overview
+Overview
 ------------
 
-How to make Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
+Secara garis besar, library ini dibuat untuk mengembangkan metode ekstraksi kebergantungan kebutuhan menggunakan pemrosesaan bahasa alamiah, yang telah diterangkan pada proceeding conference di  `ISRITI2021`_. Jika anda menggunakan library ini, saya sangat mengapresiasi, dengan cara mengirimkan segala macam bentuk kiriman melalui `courtesy`_  dan `scholar`_, Semoga data yang saya publikasikan, berguna untuk orang banyak, terima kasih. 
 
-Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing described in our Proceeding Conference at `ISRITI2021`_. Please kindly cite the following paper when you use this tool. It would also be appreciated if you send me a `courtesy`_  and `scholar`_, so I could survey what kind of tasks the tool is used for. 
+Abstrak
+------------
+Changes in requirements are one of the critical problems that occur during requirement specification. A change in a requirement could trigger changes in other requirements. Thus the identification process requirement to respond and correct the truth, realistic, require, specific, measurable aspects. Previous work has focused on building a model of interdependency between the requirements. This study proposes a method to identify dependencies among requirements. The dependency relations refer to evolutionary requirements. The technique uses natural language processing to extract dependency relations. This research analyzes how to obtain feature extractions by including the following: 1) Gathering requirements statement from the SRS document, 2) Identifying dependencies between requirements, 3) Developing interdependency extraction methods and, 4) Modeling of the interdependency requirement. The expectation of this experiment indicates the interdependency graph model. This graph defines the interdependency in the (Software Requirement Specification) SRS document. This method gathers interdependency between SRS document requirements such as PART OF, AND, OR, & XOR. Therefore, getting the feature extraction to identify the interdependency requirement will be useful for solving specified requirements changing.
 
 .. _ISRITI2021: https://ieeexplore.ieee.org/document/9315489
 .. _courtesy: https://www.researchgate.net/profile/Rakha_Asyrofi
 .. _scholar: https://scholar.google.com/citations?user=WN9T5UUAAAAJ&hl=id&oi=ao
 
-.. _courtesy_:
-.. _scholar_:
+Dikembangkan oleh Rakha Asyrofi (c) 2021
 
-Developed by Asyrofi (c) 2021
-
-How to install
+Cara menginstall
 --------------
 
 installation using pypi:
 
     pip install extractreq
 
-Features
+Fitur yang digunakan
 ------------
-- This source code can be used to extract requirement
-- This source code can be used to search relation between requierment
+Berikut ini adalah beberapa fitur yang telah digunakan sebagai berikut:
+- library ini dapat mengekstraksi kebergantungan kebutuhan
+- Library ini dapat mencari relasi antar kebutuhan
 
-Contribute
+Kontribusi
 ------------
-
+Sebagai bahan pengemabangan saya, maka saya apresiasi apabila anda, dapat mengecek issue dari repository library ini.
 - Issue Tracker: https://github.com/asyrofist/Extraction-Requirement/issues
 - Source Code: https://github.com/asyrofist/Extraction-Requirement
 
 Support
 ------------
+Jika anda memiliki masalah, saat menggunakan library ini. Mohon dapat membuat mailing list ke at: asyrofi.19051@mhs.its.ac.id
 
-If you are having issues, please let us know. We have a mailing list located at: asyrofi.19051@mhs.its.ac.id
-
-License
+Lisensi
 ------------
-
-The project is licensed under the MIT License
+Proyek ini dapat lisensi atas MIT License

@@ -26,12 +26,14 @@ Instalasi menggunakan PYPI:
 Fitur yang digunakan
 ------------
 Berikut ini adalah beberapa fitur yang telah digunakan sebagai berikut:
+
 - library ini dapat mengekstraksi kebergantungan kebutuhan
 - Library ini dapat mencari relasi antar kebutuhan
 
 Kontribusi
 ------------
 Sebagai bahan pengemabangan saya, maka saya apresiasi apabila anda, dapat mengecek issue dari repository library ini.
+
 - Issue Tracker: https://github.com/asyrofist/Extraction-Requirement/issues
 - Source Code: https://github.com/asyrofist/Extraction-Requirement
 

@@ -15,4 +15,4 @@ Contents:
    history
    readme
    usage
-   author
+   authors

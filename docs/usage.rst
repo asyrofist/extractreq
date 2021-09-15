@@ -69,6 +69,7 @@ Bagaimana cara menggunakan template ini, dapat dilihat dari contoh syntax beriku
 	myPart.stanfordConstinuityParsing(data)
 
 Berikut ini penjelasan singkat darri contoh syntax tersebut.
+
 - myPart.preprocessing()
 bagian ini menunjukkan bagaimana cara pengembang melihat daftar dataset yang digunakan. Daftar dataset ini diambil dari excel dengan memilah daftar sheet yang digunakan. sehingga dengan jelas memperlihatkan daftar data yang digunakan.
 

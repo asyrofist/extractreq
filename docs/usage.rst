@@ -2,6 +2,9 @@
 Instalasi
 ============
 
+Install langsung dari pypi
+-------------------
+
 Install the package with pip::
 
     $ pip install extractreq
@@ -26,8 +29,9 @@ Currently, pip install is not supported but will be addressed.
 
 
 Instalasi Extraksi Kebergantungan Kebutuhan
-=================
-Library ini dapat digunakan menggunakan spesifikasi dibawah ini, dimana python dan requirement yang dibutuhkan adalah sebagai berikut:
+------------------------------------------
+Library ini dapat digunakan menggunakan spesifikasi dibawah ini, dimana python dan requirement yang dibutuhkan adalah sebagai berikut.
+karena pengembangan menggunakan environment 3.7 maka disarankan untuk menginstal diatas versi tersebut.
 
 - Python :code:`>= 3.7`
 
@@ -50,6 +54,8 @@ Segala macam detail saya jelaskan pada sebagai berikut.
 ========
 Penggunaan
 ========
+Contoh Penggunaan Library
+------------
 
 Bagaimana cara menggunakan template ini, dapat dilihat dari contoh syntax berikut ini::
 

@@ -6,7 +6,14 @@ overview
 
 How to make Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
 
-Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing described in our Proceeding Conference at (https://ieeexplore.ieee.org/document/9315489). Please kindly cite the following paper when you use this tool. It would also be appreciated if you send me a courtesy (https://www.researchgate.net/profile/Rakha_Asyrofi) and (https://scholar.google.com/citations?user=WN9T5UUAAAAJ&hl=id&oi=ao), so I could survey what kind of tasks the tool is used for. 
+Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing described in our Proceeding Conference at `ISRITI2021`_. Please kindly cite the following paper when you use this tool. It would also be appreciated if you send me a `courtesy`_  and `scholar`_, so I could survey what kind of tasks the tool is used for. 
+
+.. _ISRITI2021: https://ieeexplore.ieee.org/document/9315489
+.. _courtesy: https://www.researchgate.net/profile/Rakha_Asyrofi
+.. _scholar: https://scholar.google.com/citations?user=WN9T5UUAAAAJ&hl=id&oi=ao
+
+.. _courtesy_:
+.. _scholar_:
 
 Developed by Asyrofi (c) 2021
 

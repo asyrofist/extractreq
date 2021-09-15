@@ -12,6 +12,6 @@ Contents:
    :maxdepth: 4
    
    history
-   readme
+   detail
    usage
    authors

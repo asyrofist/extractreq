@@ -15,8 +15,8 @@ Contents:
    version history
    install
    tutorials/tutorial
-   examples/examples
-   models/models
+   author
+   
 
 
 Indices and tables

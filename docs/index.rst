@@ -13,5 +13,3 @@ Contents:
    
    history
    readme
-   usage
-   authors

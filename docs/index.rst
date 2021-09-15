@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 4
    :caption: Contents
 
-   version history
+   history
    readme
+   usage
    author

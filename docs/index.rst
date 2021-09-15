@@ -16,15 +16,3 @@ Contents:
    install
    tutorials/tutorial
    author
-   
-
-
-Indices and tables
-==================
-
-.. toctree::
-   :maxdepth: 3
-   :caption: Modules
-
-   exatract-req
-

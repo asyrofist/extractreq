@@ -1,4 +1,4 @@
-Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
+Ekstraksi Kebergantungan berdasarkan kebutuhan evolusioner menggunakan bahasa alamiah
 =========================================================================================
 
 Overview
@@ -19,7 +19,7 @@ Dikembangkan oleh Rakha Asyrofi (c) 2021
 Cara menginstall
 --------------
 
-installation using pypi:
+Instalasi menggunakan PYPI:
 
     pip install extractreq
 

@@ -14,6 +14,4 @@ Contents:
 
    version history
    readme
-   install
-   tutorials/tutorial
    author

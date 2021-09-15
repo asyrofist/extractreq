@@ -9,17 +9,22 @@ Extraction Requirement Document
 Contents:
 
 .. toctree::
-   :maxdepth: 2
-   :glob:
+   :maxdepth: 4
+   :caption: Contents
 
-   *
-
+   version history
+   install
+   tutorials/tutorial
+   examples/examples
+   models/models
 
 
 Indices and tables
 ==================
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. toctree::
+   :maxdepth: 3
+   :caption: Modules
+
+   exatract-req
 

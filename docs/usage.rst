@@ -60,10 +60,23 @@ Contoh Penggunaan Library
 Bagaimana cara menggunakan template ini, dapat dilihat dari contoh syntax berikut ini::
 
 	from extractreq.partof_modul1 import partOf
-	myPart = partOf(inputData= 'dataset.xlsx', # dataset
-			dataStanford= 'stanford-corenlp-4.0.0',  #diambil dari https://stanfordnlp.github.io/CoreNLP/download.html
-			urlStanford= 'http://corenlp.run/')
+	myPart = partOf(inputData, # dataset
+			dataStanford,  #diambil dari https://stanfordnlp.github.io/CoreNLP/download.html
+			urlStanford) # url corenlp 'http://corenlp.run/' 
 	myPart.preprocessing()
-	myPart.fulldataset(inputData= '2005 - Grid 3D')
+	myPart.fulldataset(inputData)
 	myPart.parsing(data)
-	myPart.stanfordPostag(data)
+	myPart.stanfordConstinuityParsing(data)
+
+Berikut ini penjelasan singkat darri contoh syntax tersebut.
+- myPart.preprocessing()
+bagian ini menunjukkan bagaimana cara pengembang melihat daftar dataset yang digunakan. Daftar dataset ini diambil dari excel dengan memilah daftar sheet yang digunakan. sehingga dengan jelas memperlihatkan daftar data yang digunakan.
+
+- myPart.fulldataset(inputData) 
+Bagian ini memperlihatkan dataset secara secara spesifik, sehingga cocok digunakan untuk data_raw awal sebelum dilakukan pra-pemrosesan maupun kegiatan lainnya. Karena data tersebut cenderung berbeda-beda terhadap setiap hasil yang diambil. 
+
+- myPart.parsing(data)
+Sesuai dengan perintahnya menunjukkan hasil parsing dari sebuah dokumen, sehingga hasil data berupa parse tree dari dari visualisasi corenlp dari uril berikut ini 'http://corenlp.run/' 
+
+- myPart.stanfordConstinuityParsing(data)
+cara kerjanya sama halnya dengan syntax sebelumnya yaitu parsing, namun bedanya hanya pada visualisasi parse tree dengan menggunakan instalasi package stanford yang telah didownload sebelumnya dari laman berikut ini  https://stanfordnlp.github.io/CoreNLP/download.html

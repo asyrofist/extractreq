@@ -51,19 +51,14 @@ If you are having issues, please let us know. We have a mailing list located at:
 If you find this repository useful for your research, please use the following.
 
 ```
-@INPROCEEDINGS{9315489,  
-  author={R. {Asyrofi} and D. O. {Siahaan} and Y. {Priyadi}},  
-  booktitle={2020 3rd International Seminar on Research of Information Technology and Intelligent Systems (ISRITI)},   
-  title={Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing},   
-  month={January},
-  year={2021},  
-  address={"Yogyakata, Indonesia"},  
-  publisher = "IEEE",
-  url = "https://ieeexplore.ieee.org/document/9315489",
-  pages={332-337},  
-  language = "English",
-  doi={10.1109/ISRITI51436.2020.9315489}}
-  ISBN = "978-1-7281-8406-7",
+@INPROCEEDINGS{9315489,  author={Asyrofi, Rakha and Siahaan, Daniel Oranova and Priyadi, Yudi},  
+booktitle={2020 3rd International Seminar on Research of Information Technology and Intelligent Systems (ISRITI)},   
+title={Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing},   
+year={2020},  
+volume={},  
+number={},  
+pages={332-337},  
+doi={10.1109/ISRITI51436.2020.9315489}}
 ```
 
 ## License

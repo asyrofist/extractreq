@@ -3,7 +3,7 @@
 ![PyPI - Python Version](https://img.shields.io/badge/python-3.7.0-blue.svg)
 [![PyPI](https://img.shields.io/badge/pypi-v0.0.1-blue.svg)](https://pypi.org/project/extractreq/)
 [![Documentation Status](https://readthedocs.org/projects/extraction-requirement/badge/?version=latest)](https://extraction-requirement.readthedocs.io/en/latest/?badge=latest)
-
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
 
 
 # Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing

@@ -8,7 +8,7 @@ Berikut ini adalah daftar author yang telah berkontribusi dalam membuat program 
 .. _extractReq: https://ieeexplore.ieee.org/document/9315489
 
 * Rakha Asyrofi 
-* Daniel Siahaan Oktavian
+* Daniel Oranova Siahaan
 * Yudi Priyadi
 
 

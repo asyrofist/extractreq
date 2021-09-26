@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5528399.svg)](https://doi.org/10.5281/zenodo.5528399)
 # Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
 
 Author  | [Rakha Asyrofi](https://scholar.google.com/citations?user=WN9T5UUAAAAJ&hl=id&oi=ao)

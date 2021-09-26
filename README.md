@@ -1,14 +1,6 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5528399.svg)](https://doi.org/10.5281/zenodo.5528399)
 ![image](https://visitor-badge.laobi.icu/badge?page_id=asyrofist/Extraction-Requirement) 
-<!-- [![Contributors][contributors-shield]][contributors-url] 
-[![Forks][forks-shield]][forks-url] 
-[![Stargazers][stars-shield]][stars-url] 
-[![Issues][issues-shield]][issues-url] 
-[![MIT License][license-shield]][license-url] 
-[![LinkedIn][linkedin-shield]][linkedin-url] 
-[![Discord][discord-shield]][discord-url] 
-[![Medium][medium-shield]][medium-url]
- -->
+
 # Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
 
 Author  | [Rakha Asyrofi](https://scholar.google.com/citations?user=WN9T5UUAAAAJ&hl=id&oi=ao)

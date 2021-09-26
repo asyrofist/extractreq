@@ -1,5 +1,8 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5528399.svg)](https://doi.org/10.5281/zenodo.5528399)
 ![image](https://visitor-badge.laobi.icu/badge?page_id=asyrofist/Extraction-Requirement) 
+![PyPI - Python Version](https://img.shields.io/badge/python-3.7.0-blue.svg)
+[![PyPI](https://img.shields.io/badge/pypi-v0.0.1-blue.svg)](https://pypi.org/project/extractreq/)
+
 
 # Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
 

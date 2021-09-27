@@ -1,7 +1,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5528399.svg)](https://doi.org/10.5281/zenodo.5528399)
 ![image](https://visitor-badge.laobi.icu/badge?page_id=asyrofist/Extraction-Requirement) 
 ![PyPI - Python Version](https://img.shields.io/badge/python-3.7.0-blue.svg)
-[![PyPI](https://img.shields.io/badge/pypi-v0.0.1-blue.svg)](https://pypi.org/project/extractreq/)
+[![PyPI](https://img.shields.io/pypi/v/extractreq.svg)](https://pypi.org/project/extractreq/)
 [![Documentation Status](https://readthedocs.org/projects/extraction-requirement/badge/?version=latest)](https://extraction-requirement.readthedocs.io/en/latest/?badge=latest)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
 [![Build Status](https://app.travis-ci.com/asyrofist/Extraction-Requirement.svg?branch=main)](https://app.travis-ci.com/asyrofist/Extraction-Requirement)

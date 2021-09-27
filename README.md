@@ -4,7 +4,7 @@
 [![PyPI](https://img.shields.io/badge/pypi-v0.0.1-blue.svg)](https://pypi.org/project/extractreq/)
 [![Documentation Status](https://readthedocs.org/projects/extraction-requirement/badge/?version=latest)](https://extraction-requirement.readthedocs.io/en/latest/?badge=latest)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
-
+[![Build Status](https://app.travis-ci.com/asyrofist/Extraction-Requirement.svg?branch=main)](https://app.travis-ci.com/asyrofist/Extraction-Requirement)
 
 # Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
 

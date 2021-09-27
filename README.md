@@ -5,6 +5,8 @@
 [![Documentation Status](https://readthedocs.org/projects/extraction-requirement/badge/?version=latest)](https://extraction-requirement.readthedocs.io/en/latest/?badge=latest)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
 [![Build Status](https://app.travis-ci.com/asyrofist/Extraction-Requirement.svg?branch=main)](https://app.travis-ci.com/asyrofist/Extraction-Requirement)
+[![Paper](http://img.shields.io/badge/Paper-PDF-red.svg)](https://ieeexplore.ieee.org/document/9315489)
+[![Slide](http://img.shields.io/badge/Slides-PDF-orange.svg)](https://github.com/asyrofist/Extraction-Requirement/blob/main/docs/ISRITI_2020.pdf)
 
 # Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
 

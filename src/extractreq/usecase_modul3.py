@@ -1,3 +1,7 @@
+__copyright__ = "Copyright (c) 2021"
+__author__ = "Rakha Asyrofi"
+__date__ = "2021-10-08:18:07:39"
+
 # -*- coding: utf-8 -*-
 """modul_relasi.ipynb
 Author Rakha Asyrofi / 05111950010038

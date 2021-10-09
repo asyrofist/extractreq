@@ -1,0 +1,4 @@
+deploy:
+  provider: pypi
+  username: "__token__"
+  password: pypi-AgEIcHlwaS5vcmcCJGRmZWI0MjFmLTE1YzEtNGRkYy04NWQ4LTgzNzEyOGQxMDY0MAACJXsicGVybWlzc2lvbnMiOiAidXNlciIsICJ2ZXJzaW9uIjogMX0AAAYgtk3a3M15oRQWBBbzbWiCXaGmwXU7p6D06gs6odh3ZLE

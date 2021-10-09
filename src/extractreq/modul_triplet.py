@@ -6,10 +6,6 @@ __date__ = "2021-10-08:18:07:39"
 url_param = "http://corenlp.run/" #@param {type:"string"}
 dataFile = "/content/drive/MyDrive/dataset/dataset_2.xlsx" #@param {type:"string"}
 srs_param = "2003 - Tachonet" #@param ["0000 - cctns", "0000 - gamma j", "0000 - Inventory", "1998 - themas", "1999 - dii", "1999 - multi-mahjong", "1999 - tcs", "2000 - nasa x38", "2001 - ctc network", "2001 - esa", "2001 - hats", "2001 -libra", "2001 - npac", "2001 - space fractions", "2002 - evia back", "2002 - evia corr", "2003 - agentmom", "2003 - pnnl", "2003 - qheadache", "2003 - Tachonet", "2004 - colorcast", "2004 - eprocurement", "2004 - grid bgc", "2004 - ijis", "2004 - Phillip", "2004 - rlcs", "2004 - sprat", "2005 - clarus high", "2005 - clarus low", "2005 - Grid 3D", "2005 - nenios", "2005 - phin", "2005 - pontis", "2005 - triangle", "2005 - znix", "2006 - stewards", "2007 - ertms", "2007 - estore", "2007 - nde", "2007 - get real 0.2", "2007 - mdot", "2007 - nlm", "2007 - puget sound", "2007 - water use", "2008 - caiso", "2008 - keepass", "2008 - peering", "2008 - viper", "2008 - virtual ed", "2008 - vub", "2009 - email", "2009 - gaia", "2009 - inventory 2.0", "2009 - library", "2009 - library2", "2009 - peazip", "2009 - video search", "2009 - warc III", "2010 - blit draft", "2010 - fishing", "2010 - gparted", "2010 - home", "2010 - mashboot", "2010 - split merge"]
-
-# dataFile = "/content/drive/MyDrive/dataset/visualPartOf/partOf2005 - Grid 3D.xlsx" #@param {type:"string"}
-# srs_param = "tabel_partOf" #@param {type:"string"}
-
 col_param = "Requirement Statement" #@param ["Requirement Statement", "req"]
 mode_param = "parse_tree" #@param ["parse_tree", "spo", "result"]
 
@@ -120,10 +116,10 @@ class extractNlp:
   def __del__(self):
       print("destructed")
 
-  def main(self, output):
+  def main(self, srs_param, col_param,  output= mode_param):
       id_req = extractNlp.fulldataset(self, srs_param)['ID']
       data_num = [num for num in extractNlp.fulldataset(self, srs_param)[col_param]]
-      data_triplet = [extractNlp.triplet_extraction(self, num, output= mode_param) 
+      data_triplet = [extractNlp.triplet_extraction(self, num, output) 
                       for num in extractNlp.fulldataset(self, srs_param)[col_param]]
       triplet_df = pd.DataFrame([data_num, data_triplet], index= ['origin', 'triplet'], columns= id_req).T
       print(tabulate(triplet_df, headers = 'keys', tablefmt = 'psql'))
@@ -131,7 +127,7 @@ class extractNlp:
 
 if __name__ == "__main__":
   try:
-    extractNlp().main(mode_param)
+    extractNlp().main(srs_param, col_param, mode_param)
 
   except OSError as err:
     print("OS error: {0}".format(err))

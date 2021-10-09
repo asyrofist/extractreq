@@ -14,12 +14,18 @@ Original file is located at
 
 """# Modul3: pencarian relasi"""
 
-from os import name
+# !pip install -U pywsd
+# !pip install -U wn==0.0.23
+
 import pandas as pd
-from nltk.tokenize import word_tokenize 
+import numpy as np
+from spacy.lang.en import English
+from spacy.tokenizer import Tokenizer
 from pywsd import disambiguate
-from pywsd.cosine import cosine_similarity
+from pywsd.similarity import similarity_by_path
 from tabulate import tabulate
+from tqdm.auto import tqdm
+from time import sleep, time
 
 # template class ucdReq
 class ucdReq:
@@ -28,6 +34,16 @@ class ucdReq:
   def __init__(self, data_aksi_aktor, tabel_usecase):
     self.aksi_aktor = data_aksi_aktor
     self.dt_usecase = tabel_usecase
+
+  def progressBar(self, data):
+      pbar = tqdm(iterable= range(0, len(data)), leave= False, desc= 'loading..', unit= 'synsets')
+      for i in pbar:
+          sleep(0.1)
+          pbar.update(1)
+      return pbar.close()
+
+  def progressBarDataFrame(self, data):
+      return data.progress_apply(lambda x: x)
 
   def fulldataset(self, inputData):
       xl = pd.ExcelFile(self.aksi_aktor)
@@ -50,27 +66,66 @@ class ucdReq:
       print('Processing: [{}] ...'.format(sh))
       print(df.head())
 
-  def useCaseWSDStopwords(self, keyword, id_keyword):
-    word_stopwords = [disambiguate(x) for x in keyword]
-    b = [len(word_tokenize(num)) for num in keyword]
-    c = max(b)
-    list_kolom = ["data{}".format(x) for x in range(0,c)]
-    word_synset_stopwords = [[n[1] for n in y] for y in word_stopwords]
-    hasilUcd_stopwords = pd.DataFrame(word_synset_stopwords, index= id_keyword, columns= list_kolom)
-    return hasilUcd_stopwords
+  def synset_word(self, data): # pencarian synset
+    try:
+      nlp = English()
+      # tokenizer = nlp.Defaults.create_tokenizer(nlp)
+      tokenizer = tokenizer = Tokenizer(nlp.vocab)
+      num_token = [token.text for token in tokenizer(data)]
+      word = [disambiguate(x) for x in num_token]
+      wordsynset = [[n[1] for n in y if n[1] is not None] for y in word]
+      final_synset = [val[0] for val in wordsynset if len(val) > 0]
+      # ucdReq.progressBar(self, final_synset)
+      return final_synset
 
-  #PengukuranUCD
-  def useCaseMeasurement(self, keyword1, keyword2, id1, id2):
-    hasil_wsd = []
-    for num in keyword1:
-      text = [cosine_similarity(num, angka) for angka in keyword2]
-      hasil_wsd.append(text)
-    df = pd.DataFrame(hasil_wsd, index= id1, columns= id2)
-    return df
+    except OSError as err:
+        print("OS error: {0}".format(err))
+
+  def wsd_greedy(self, s1, s2): # kombinasi algoritma wsd dan greedy
+    try:
+      scores = [[x for x in [similarity_by_path(i1, i2, option= 'wup') for i2 in s2] if x is not None] for i1 in s1]
+      flt_scores = [val for val in scores if len(val) > 0]
+      ucdReq.progressBar(self, flt_scores) # visualisasi proses
+      list_wsd = [np.max(num) for num in flt_scores]
+      dt = (sorted(list_wsd, reverse=True))
+      dt_value = dt[:len(dt)-1]
+      kalkulasi = 2 * sum(dt_value) / ((len(flt_scores)) + (len(flt_scores[0])))
+      return kalkulasi
+    except OSError as err:
+        print("OS error: {0}".format(err))
+
+  def similaritas_doc(self, doc1, doc2): # pencarian kesmaaan dokumen
+    try:
+      synsets1 = ucdReq.synset_word(self, doc1)
+      synsets2 = ucdReq.synset_word(self, doc2)
+      kalkulasi_synset = (ucdReq.wsd_greedy(self, synsets1, synsets2) + ucdReq.wsd_greedy(self, synsets2, synsets1)) / 2   
+      return kalkulasi_synset
+    except OSError as err:
+        print("OS error: {0}".format(err))
+
+  def ucdMeasurement(self, keyword1, keyword2): #pengukuran
+    try:
+      hasil_wsd = [[ucdReq.similaritas_doc(self, num, angka) for angka in keyword2] for num in keyword1]
+      wsd_df = pd.DataFrame(hasil_wsd)
+      # ucdReq.progressBar(self, wsd_df)
+      return wsd_df
+    except OSError as err:
+        print("OS error: {0}".format(err))
 
   def change_case(self, word):
-      return ''.join([' '+i.lower() if i.isupper()
-          else i for i in word]).lstrip(' ')
+      return ''.join([' '+i.lower() if i.isupper() else i for i in word]).lstrip(' ')
+
+  def thresholdvalue(self, threshold, data):
+    try:
+      dt = data.values >= threshold
+      d1 = pd.DataFrame(dt, index= data.index, columns= data.columns)
+      mask = d1.isin([True])
+      d2 = d1.where(mask, other= 0)
+      mask2 = d1.isin([False])
+      return d2.where(mask2, other= 1)
+    except OSError as err:
+        print("OS error: {0}".format(err))
+
 
 
   def __del__(self):
@@ -78,28 +133,47 @@ class ucdReq:
 
 if __name__ == "__main__":
   try:
-      # data dari txt
-      MyucdReq = ucdReq(data_aksi_aktor, tabel_usecase)
-      freqs = MyucdReq.fulldataset(inputData)
-      ucd1 = MyucdReq.fulldataset(inputData)
-      ucd2 = MyucdReq.fulldataset(inputData)
+      # openfile
+      t0 = time()
+      MyucdReq = ucdReq(data_aksi_aktor= r'data_aksi_aktor.xlsx', tabel_usecase= r'data_xmi.xlsx')
+      tabel_freq =  'tabel_freqs' 
+      freqs = MyucdReq.fulldataset(inputData= tabel_freq)# data dari txt
+      tabel_ucd1 =  'tabel_ucd1' 
+      ucd1 = MyucdReq.fulldataset(inputData= tabel_ucd1) # data dari txt
+      tabel_ucd2 =  'tabel_ucd2' 
+      ucd2 = MyucdReq.fulldataset(inputData= tabel_ucd2) # data dari txt
+      namaUsecase =  'tabel_usecase'
+      useCaseTable  = MyucdReq.fulldataset_xmi(inputXMI= namaUsecase) # dari xmi
 
-      tbl_1 = MyucdReq.useCaseMeasurement(keyword1= freqs.aksi, keyword2=ucd1.aksi , id1= freqs.id, id2= ucd1.usecase)
-      tbl_1.rename(columns = {'insertMetadata':'UC01', 'searchArticle':'UC03', 'viewNextResult':'UC04'}, inplace = True)
-      print("\nData Pengukuran antara functional dan ucd1")
+
+      tbl_1 = MyucdReq.ucdMeasurement(freqs.aksi, ucd1.dropna().aksi)
+      tbl_1.columns = ucd1.dropna().usecase
+      tbl_1.index = freqs.id
+      tbl_1.rename(columns = {'insertMetadata_1':'UC01', 'insertMetadata_2':'UC01',  'insertMetadata_3':'UC01', 'insertMetadata_4':'UC01',  'insertMetadata_5':'UC01',
+                              'searchArticle_1':'UC03', 'searchArticle_2':'UC03', 'searchArticle_3':'UC03', 'searchArticle_4':'UC03', 'searchArticle_5':'UC03',    
+                              'viewNextResult_1':'UC04', 'viewNextResult_2':'UC04', 'viewNextResult_3':'UC04', 
+                              }, inplace = True)
+      tqdm.pandas(desc="Data Pengukuran antara functional dan ucd1 (txt)")
+      MyucdReq.progressBarDataFrame(tbl_1)
       print(tabulate(tbl_1, headers = 'keys', tablefmt = 'psql'))
 
-      ucd2= ucd2.dropna()
-      tbl_2 = MyucdReq.useCaseMeasurement(keyword1= freqs.aksi, keyword2=ucd2.aksi , id1= freqs.id, id2= ucd2.usecase)
-      tbl_2.rename(columns = {'searchResearcher':'UC02', 'orderByRelevancy':'UC05', 'orderByScore':'UC06', 
-                              'viewDetailResearcher':'UC07', 'removeArticle':'UC09', 'editProfile':'UC08' }, inplace = True)
-      print("\nData Pengukuran antara functional dan ucd2")
+      print("\n\n")
+      tbl_2 = MyucdReq.ucdMeasurement(freqs.aksi, ucd2.dropna().aksi)
+      tbl_2.columns = ucd2.dropna().usecase
+      tbl_2.index = freqs.id
+      tbl_2.rename(columns = {'searchResearcher_1':'UC02','searchResearcher_2':'UC02', 'searchResearcher_3':'UC02',
+                              'orderByRelevancy_1':'UC05', 'orderByRelevancy_2':'UC05','orderByRelevancy_3':'UC05',  
+                              'orderByScore_1':'UC06','orderByScore_2':'UC06', 'orderByScore_3':'UC06',
+                              'viewDetailResearcher_1':'UC07','viewDetailResearcher_2':'UC07', 'viewDetailResearcher_3':'UC07', 
+                              'removeArticle_1':'UC09', 'removeArticle_2':'UC09', 'removeArticle_3':'UC09', 
+                              'editProfile_1':'UC08', 'editProfile_2':'UC08',  'editProfile_3':'UC08','editProfile_4':'UC08', 'editProfile_5':'UC08',
+                              }, inplace = True)
+      tqdm.pandas(desc="Data filter pengukuran maksmimum antara functional terhadap ucd1 dan ucd2 (txt)")
+      MyucdReq.progressBarDataFrame(tbl_2)
       print(tabulate(tbl_2, headers = 'keys', tablefmt = 'psql'))
 
+      print("\n\n")
       tbl_3 = pd.concat([tbl_1, tbl_2], axis= 1)
-      print("\nData Pengukuran Gabungan")
-      print(tabulate(tbl_3, headers = 'keys', tablefmt = 'psql'))
-
       tbl_3['uc01'] = tbl_3.UC01.values.max(1)
       tbl_3['uc02'] = tbl_3.UC02.values.max(1)
       tbl_3['uc03'] = tbl_3.UC03.values.max(1)
@@ -109,46 +183,47 @@ if __name__ == "__main__":
       tbl_3['uc07'] = tbl_3.UC07.values.max(1)
       tbl_3['uc08'] = tbl_3.UC08.values.max(1)
       tbl_3['uc09'] = tbl_3.UC09.values.max(1)
-      df_filter = tbl_3.drop(['UC01','UC02', 'UC03', 'UC04', 'UC05', 'UC06', 'UC07', 'UC08', 'UC09'], axis= 1)
-      print("\nData filter maksmimum")
-      print(tabulate(df_filter, headers = 'keys', tablefmt = 'psql'))
+      tbl_3filter = tbl_3.drop(['UC01','UC02', 'UC03', 'UC04', 'UC05', 'UC06', 'UC07', 'UC08', 'UC09'], axis= 1)
+      tqdm.pandas(desc="Data filter pengukuran maksmimum antara functional terhadap ucd1 dan ucd2 (txt)")
+      MyucdReq.progressBarDataFrame(tbl_3filter)
+      print(tabulate(tbl_3filter, headers = 'keys', tablefmt = 'psql'))
 
-      d = df_filter.values >= threshold
-      d1 = pd.DataFrame(d, index= df_filter.index, columns= df_filter.columns)
-      mask = d1.isin([True])
-      d2 = d1.where(mask, other= 0)
-      mask2 = d1.isin([False])
-      d3 = d2.where(mask2, other= "1")
-      tbl_4 = d3
-      print("\nData hasil relasi antara kebutuhan dan kasus penggunaan")
+      print("\n\n")
+      tbl_4 = MyucdReq.thresholdvalue(0.4, tbl_3filter)
+      tqdm.pandas(desc="Data hasil relasi antara kebutuhan dan kasus penggunaan (txt)\n")
+      MyucdReq.progressBarDataFrame(tbl_4)
       print(tabulate(tbl_4, headers = 'keys', tablefmt = 'psql'))
 
-      # data dari xmi
-      useCaseTable  = MyucdReq.fulldataset_xmi(inputXMI)
-      data_ucd = []
-      for num in useCaseTable.name:
-        data_ucd.append(MyucdReq.change_case(num))
-      tbl_1x = MyucdReq.useCaseMeasurement(keyword1= freqs.aksi, keyword2=data_ucd , id1= freqs.id, id2= useCaseTable.name)
+      # xmi code
+      print("\n\n")
+      data_ucd = [MyucdReq.change_case(num) for num in useCaseTable.name]
+      tbl_1x = MyucdReq.ucdMeasurement(freqs.aksi, data_ucd)
+      tbl_1x.index = freqs.id
+      tbl_1x.columns = useCaseTable.name
       tbl_1x.rename(columns = {'insertMetadata':'uc01', 'searchArticle':'uc03', 'viewNextResult':'uc04', 
                                'searchResearcher':'uc02', 'orderByRelevancy':'uc05', 'orderByScore':'uc06', 
                               'viewDetailOfResearcher':'uc07', 'removeArticle':'uc09', 'editProfile':'uc08' }, inplace = True)
-      print("\nData hasil relasi antara kebutuhan dan kasus penggunaan (xmi)")
+      print("\n\n")
+      tqdm.pandas(desc="Data hasil relasi antara kebutuhan dan kasus penggunaan (xmi)")
+      MyucdReq.progressBarDataFrame(tbl_1x)
       print(tabulate(tbl_1x, headers = 'keys', tablefmt = 'psql'))
 
-      dt = tbl_1x.values >= threshold_kedua
-      dt1 = pd.DataFrame(dt, index= tbl_1x.index, columns= tbl_1x.columns)
-      mask = dt1.isin([True])
-      dt2 = dt1.where(mask, other= 0)
-      mask2 = dt2.isin([False])
-      tbl_5 = dt2.where(mask2, other= 1)
-      print("\nData hasil relasi antara kebutuhan dan kasus penggunaan (xmi)")
+      print("\n\n")
+      tbl_5 = MyucdReq.thresholdvalue(0.3, tbl_1x)
+      tqdm.pandas(desc="Data hasil threshold relasi (xmi)\n")
+      MyucdReq.progressBarDataFrame(tbl_5)
       print(tabulate(tbl_5, headers = 'keys', tablefmt = 'psql'))
 
-      list_usecase = ['uc01', 'uc02', 'uc03', 'uc04', 'uc05', 'uc06', 'uc07', 'uc08', 'uc09']
+      print("\n\n")
+      list_usecase = [num for num in tbl_5.columns]
       # tbl_6 = tbl_4.merge(tbl_5, how= 'inner', left_index= True, right_index= True, on= list_usecase)
-      tbl_6 = tbl_4.merge(tbl_5, how= 'inner', left_index= True, right_index= True)
-      print("\nData hasil join relasi antara kebutuhan dan kasus penggunaan (txt dan xmi)")
+      tbl_6 = tbl_4.merge(tbl_5, how= 'inner', on= list_usecase)
+      tqdm.pandas(desc="Data hasil join relasi antara kebutuhan dan kasus penggunaan (txt dan xmi)\n")
+      MyucdReq.progressBarDataFrame(tbl_6)
       print(tabulate(tbl_6, headers = 'keys', tablefmt = 'psql'))
+      
+      print("done in %0.3fs." % (time() - t0))
+      input('Press ENTER to exit') 
 
       MyucdReq.__del__()
 

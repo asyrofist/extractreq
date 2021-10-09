@@ -121,7 +121,7 @@ class stanford_clause:
     def __del__(self):
       print("descructed")
 
-    def main(self):
+    def main(self, srs_param):
         id_req = stanford_clause.fulldataset(self, srs_param)['ID']
         req = stanford_clause.fulldataset(self, srs_param)[col_param]
 
@@ -138,7 +138,7 @@ class stanford_clause:
 
 if __name__ == "__main__":
   try:
-    stanford_clause().main()
+    stanford_clause().main(srs_param)
     # sent =  'Joe waited for the train, but the train was late.'
     # sent = re.sub(r"(\.|,|\?|\(|\)|\[|\])"," ",sent)
     # clause_list = stanford_clause().get_clause_list(sent)

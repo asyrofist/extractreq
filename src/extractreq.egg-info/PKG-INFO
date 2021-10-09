@@ -1,3 +1,20 @@
+Metadata-Version: 2.1
+Name: extractreq
+Version: 0.0.3
+Summary: Berikut ini deskripsi singkat pembuatan ekstraksi kebutuhan
+Home-page: https://github.com/asyrofist/Extraction-Requirement
+Author: asyrofist (Rakha Asyrofi)
+Author-email: rakhasyrofist@gmail.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/asyrofist/Extraction-Requirement/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5528399.svg)](https://doi.org/10.5281/zenodo.5528399)
 ![image](https://visitor-badge.laobi.icu/badge?page_id=asyrofist/Extraction-Requirement) 
 ![PyPI - Python Version](https://img.shields.io/badge/python-3.7.0-blue.svg)
@@ -37,8 +54,8 @@ from extractreq.modul_ekspart import partOf
 grd_param = "grd.xlsx"
 file_param = "test.xlsx"
 srs_param = "indeks_parameter"
-
 # output_mode = ['pertama', 'kedua', 'ketiga', 'stat']
+
 partOf().extractPart(grd_param, file_param, srs_param, 'pertama')
 ```
 Check out: https://youtu.be/-d96h9mhh9s
@@ -49,6 +66,7 @@ Check out: https://youtu.be/-d96h9mhh9s
 from extractreq.modul_stanfordSent import stanford_clause
 sent = "I have friends, but nobody cares me"
 stanford_clause().get_clause_list(sent)
+
 # stanford_clause(file_param).main(srs_param)
 ```
 
@@ -60,6 +78,7 @@ from extractreq.modul_spacySent import spacyClause
 nlp = spacy.load('en_core_web_sm')
 doc = nlp("I love you 300, but I don't like you")
 spacyClause().extractData(doc)
+
 # spacyClause(file_param).main(srs_param)
 ```
 
@@ -70,6 +89,7 @@ from extractreq.modul_triplet import extractNlp
 sent = "I have friends, but nobody cares me"
 # output_mode = ['parse_tree', 'spo', 'result']
 extractNlp().triplet_extraction(sent, 'parse_tree')
+
 # extractNlp(file_param).main(srs_param, output)
 ```
 
@@ -107,3 +127,5 @@ doi={10.1109/ISRITI51436.2020.9315489}}
 ## License
 
 The project is licensed under the MIT License
+
+

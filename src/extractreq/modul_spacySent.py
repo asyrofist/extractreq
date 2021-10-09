@@ -71,7 +71,7 @@ class spacyClause:
       clauses_text = [clause.text for clause in sentence_clauses]
       return clauses_text  
 
-  def main(self):
+  def main(self, srs_param):
       id_req = spacyClause.fulldataset(self, srs_param)['ID']
       req = spacyClause.fulldataset(self, srs_param)[col_param]
       dataSpacy = []
@@ -87,7 +87,7 @@ class spacyClause:
 
 if __name__ == "__main__":
   try:
-    spacyClause().main()
+    spacyClause().main(srs_param)
 
   except OSError as err:
     print("OS error: {0}".format(err))

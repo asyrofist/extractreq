@@ -12,8 +12,8 @@
 
 Author  | [Rakha Asyrofi](https://scholar.google.com/citations?user=WN9T5UUAAAAJ&hl=id&oi=ao)
  -------|-----------
-Version | 0.0.1
-Updated | 2021-09-12
+Version | 0.0.3
+Updated | 2021-10-09
 
 # overview
 [live_demo](https://share.streamlit.io/asyrofist/extraction-requirement/main/app.py) How to make Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
@@ -44,7 +44,6 @@ partOf().extractPart(grd_param, file_param, srs_param, 'pertama')
 Check out: https://youtu.be/-d96h9mhh9s
 
 ### Stanford modul:
-
 ```python
 from extractreq.modul_stanfordSent import stanford_clause
 sent = "I have friends, but nobody cares me"
@@ -53,7 +52,6 @@ stanford_clause().get_clause_list(sent)
 ```
 
 ### Spacy modul:
-
 ```python
 import spacy
 from extractreq.modul_spacySent import spacyClause
@@ -64,7 +62,6 @@ spacyClause().extractData(doc)
 ```
 
 ### Triplet modul:
-
 ```python
 from extractreq.modul_triplet import extractNlp
 sent = "I have friends, but nobody cares me"
@@ -107,3 +104,14 @@ doi={10.1109/ISRITI51436.2020.9315489}}
 ## License
 
 The project is licensed under the MIT License
+
+
+## Reference
+
+[1] https://github.com/rahulkg31/sentence-to-clauses
+
+[2] https://subscription.packtpub.com/book/data/9781838987312/2/ch02lvl1sec13/
+
+[3] https://github.com/kj-lai/SentenceTriplet
+
+[4] https://youtu.be/-d96h9mhh9s

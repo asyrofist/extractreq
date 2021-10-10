@@ -1,5 +1,5 @@
 pandas
-nltk
+nltk<=3.2.5
 pywsd==1.1.0
 wn==0.0.22
 sklearn

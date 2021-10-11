@@ -54,8 +54,7 @@ stanford_clause().get_clause_list(sent)
 
 ### Spacy modul:
 ```python
-import spacy
-from extractreq.modul_spacySent import spacyClause
+from extractreq.modul_spacySent import spacyClause, spacy
 nlp = spacy.load('en_core_web_sm')
 doc = nlp("I love you 300, but I don't like you")
 spacyClause().extractData(doc)

@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="extractreq",
-    version="0.0.3",
+    version="0.0.9",
     author="asyrofist (Rakha Asyrofi)",
     author_email="rakhasyrofist@gmail.com",
     description="Berikut ini deskripsi singkat pembuatan ekstraksi kebutuhan",

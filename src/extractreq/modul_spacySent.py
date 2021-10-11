@@ -10,23 +10,34 @@ srs_param = "2005 - Grid 3D" #@param ["0000 - cctns", "0000 - gamma j", "0000 - 
 # dataFile = "/content/drive/MyDrive/dataset/visualPartOf/partOf2005 - Grid 3D.xlsx" #@param {type:"string"}
 # srs_param = "tabel_partOf" #@param {type:"string"}
 col_param = "Requirement Statement" #@param ["Requirement Statement", "req"]
+id_param = "ID" #@param ["ID"]
 
-
-
-import spacy
-import pandas as pd
+import pandas as pd, spacy
 from tabulate import tabulate
 
 class spacyClause:
   def __init__(self, fileName= dataFile):
+      """ parameter inisialisasi, data yang digunakan pertama kali 
+      untuk contruct data
+      """
       self.__data = fileName
 
-  def fulldataset(self, inputSRS= col_param):
+  def fulldataset(self, inputSRS): # function membuat dataset
+      """ fungsi ini digunakan untuk menentukand dataset yang digunakan
+      berdasarkan indeks srs yang dipilih, maka dari itu hal ini penting untuk
+      menyiapkan data selanjutnya.
+      partOf().fulldataset(inputSRS)
+      """
       xl = pd.ExcelFile(self.__data)
       dfs = {sh:xl.parse(sh) for sh in xl.sheet_names}[inputSRS]
       return dfs
 
-  def preprocessing(self):
+  def preprocessing(self): # function melihat struktur dataset di excel
+      """ fungsi ini digunakan untuk preprocessing untuk melihat dataset excel yang digunakan
+      fungsi ini dapat melihat struktur dataset yang diuji, sebab memperlihatkan
+      data excel beseerta tab yang digunakan.
+      partOf().preprocssing()
+      """
       xl = pd.ExcelFile(self.__data)
       for sh in xl.sheet_names:
         df = xl.parse(sh)
@@ -71,8 +82,8 @@ class spacyClause:
       clauses_text = [clause.text for clause in sentence_clauses]
       return clauses_text  
 
-  def main(self, srs_param):
-      id_req = spacyClause.fulldataset(self, srs_param)['ID']
+  def main(self, srs_param, id_param, col_param):
+      id_req = spacyClause.fulldataset(self, srs_param)[id_param]
       req = spacyClause.fulldataset(self, srs_param)[col_param]
       dataSpacy = []
       nlp = spacy.load(spacy_param)
@@ -80,14 +91,21 @@ class spacyClause:
           doc = nlp(num)
           myClause = spacyClause.extractData(self, doc)
           jml_clausa = len(myClause)
-          dataSpacy.append([id, num, myClause, jml_clausa])
-
-      spacy_df = pd.DataFrame(dataSpacy, columns = ['ID', 'req', 'clause', 'jml_clausa'])
-      print(tabulate(spacy_df, headers = 'keys', tablefmt = 'psql'))
+          label_df = []
+          if jml_clausa > 1: # non atomik berdasarkan jumlah
+               label_df.append('non_atomik')
+          elif jml_clausa == 1:
+               label_df.append('atomik')
+          else:
+               label_df.append('unknown')
+          dataSpacy.append([id, num, myClause, label_df[0], jml_clausa])
+      spacy_df = pd.DataFrame(dataSpacy, columns = ['ID', 'req', 'data', 'label', 'jumlah'])
+      return spacy_df
 
 if __name__ == "__main__":
   try:
-    spacyClause().main(srs_param)
+    dataSpacy = spacyClause(dataFile).main(srs_param, id_param, col_param)
+    print(tabulate(dataSpacy, headers = 'keys', tablefmt = 'psql'))
 
   except OSError as err:
     print("OS error: {0}".format(err))

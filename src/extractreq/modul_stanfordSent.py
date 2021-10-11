@@ -8,6 +8,7 @@ model_param = "/content/drive/MyDrive/stanford-corenlp-4.0.0" #@param {type:"str
 dataFile = "/content/drive/MyDrive/dataset/dataset_2.xlsx" #@param {type:"string"}
 srs_param = "2005 - Grid 3D" #@param ["0000 - cctns", "0000 - gamma j", "0000 - Inventory", "1998 - themas", "1999 - dii", "1999 - multi-mahjong", "1999 - tcs", "2000 - nasa x38", "2001 - ctc network", "2001 - esa", "2001 - hats", "2001 -libra", "2001 - npac", "2001 - space fractions", "2002 - evia back", "2002 - evia corr", "2003 - agentmom", "2003 - pnnl", "2003 - qheadache", "2003 - Tachonet", "2004 - colorcast", "2004 - eprocurement", "2004 - grid bgc", "2004 - ijis", "2004 - Phillip", "2004 - rlcs", "2004 - sprat", "2005 - clarus high", "2005 - clarus low", "2005 - Grid 3D", "2005 - nenios", "2005 - phin", "2005 - pontis", "2005 - triangle", "2005 - znix", "2006 - stewards", "2007 - ertms", "2007 - estore", "2007 - nde", "2007 - get real 0.2", "2007 - mdot", "2007 - nlm", "2007 - puget sound", "2007 - water use", "2008 - caiso", "2008 - keepass", "2008 - peering", "2008 - viper", "2008 - virtual ed", "2008 - vub", "2009 - email", "2009 - gaia", "2009 - inventory 2.0", "2009 - library", "2009 - library2", "2009 - peazip", "2009 - video search", "2009 - warc III", "2010 - blit draft", "2010 - fishing", "2010 - gparted", "2010 - home", "2010 - mashboot", "2010 - split merge"]
 col_param = "Requirement Statement" #@param ["Requirement Statement", "req"]
+id_param = "ID" #@param ["ID"]
 
 import re, nltk, json, pandas as pd
 # from pycorenlp import StanfordCoreNLP
@@ -17,22 +18,35 @@ from tabulate import tabulate
 class stanford_clause:
     def __init__(self, fileName= dataFile, url_stanford= url_param, 
                  model_stanford = model_param):
-        # self.nlp = StanfordCoreNLP(url_stanford)
-        self.nlp = StanfordCoreNLP(url_stanford, port= 80)
-        # self.nlp = StanfordCoreNLP(model_stanford)
+        """ parameter inisialisasi, data yang digunakan pertama kali 
+        untuk contruct data
+        """
+        # self.nlp = StanfordCoreNLP(url_stanford) # pycoren;lp
+        self.nlp = StanfordCoreNLP(url_stanford, port= 80) #stanfordcorenlp
+        # self.nlp = StanfordCoreNLP(model_stanford) #stanfordcorenlp
         self.__data = fileName
 
-    def fulldataset(self, inputSRS= col_param):
+    def fulldataset(self, inputSRS): # function membuat dataset
+        """ fungsi ini digunakan untuk menentukand dataset yang digunakan
+        berdasarkan indeks srs yang dipilih, maka dari itu hal ini penting untuk
+        menyiapkan data selanjutnya.
+        partOf().fulldataset(inputSRS)
+        """
         xl = pd.ExcelFile(self.__data)
         dfs = {sh:xl.parse(sh) for sh in xl.sheet_names}[inputSRS]
         return dfs
 
-    def preprocessing(self):
+    def preprocessing(self): # function melihat struktur dataset di excel
+        """ fungsi ini digunakan untuk preprocessing untuk melihat dataset excel yang digunakan
+        fungsi ini dapat melihat struktur dataset yang diuji, sebab memperlihatkan
+        data excel beseerta tab yang digunakan.
+        partOf().preprocssing()
+        """
         xl = pd.ExcelFile(self.__data)
         for sh in xl.sheet_names:
-          df = xl.parse(sh)
-          print('Processing: [{}] ...'.format(sh))
-          print(df.head())
+            df = xl.parse(sh)
+            print('Processing: [{}] ...'.format(sh))
+            print(df.head())
 
     def get_verb_phrases(self, t):
         verb_phrases = []
@@ -119,26 +133,33 @@ class stanford_clause:
         return clause_list
 
     def __del__(self):
-      print("descructed")
+        pass
 
-    def main(self, srs_param):
-        id_req = stanford_clause.fulldataset(self, srs_param)['ID']
+    def main(self, srs_param, id_param, col_param):
+        id_req = stanford_clause.fulldataset(self, srs_param)[id_param]
         req = stanford_clause.fulldataset(self, srs_param)[col_param]
-
         data_clausa = []
         for id, num in zip(id_req, req):
             sent = re.sub(r"(\.|,|\?|\(|\)|\[|\])"," ",num)
             clause_list = [idx for idx in stanford_clause.get_clause_list(self, sent)]
             jml_clausa = len(clause_list)
-            data_clausa.append([id, num, clause_list, jml_clausa])
-
-        clausa_df = pd.DataFrame(data_clausa, columns= ['id', 'req', 'hasil', 'jml_clausa'])
-        print(tabulate(clausa_df, headers = 'keys', tablefmt = 'psql'))
+            label_df = []
+            if jml_clausa > 1: # non atomik berdasarkan jumlah
+                label_df.append('non_atomik')
+            elif jml_clausa == 1:
+                label_df.append('atomik')
+            else:
+                label_df.append('unknown')            
+            data_clausa.append([id, num, clause_list, label_df[0], jml_clausa])
+        clausa_df = pd.DataFrame(data_clausa, columns= ['id', 'req', 'data', 'label', 'jumlah'])
         stanford_clause.__del__(self)
+        return clausa_df
 
 if __name__ == "__main__":
   try:
-    stanford_clause().main(srs_param)
+    klausa = stanford_clause(dataFile).main(srs_param, id_param, col_param)
+    print(tabulate(klausa, headers = 'keys', tablefmt = 'psql'))
+
     # sent =  'Joe waited for the train, but the train was late.'
     # sent = re.sub(r"(\.|,|\?|\(|\)|\[|\])"," ",sent)
     # clause_list = stanford_clause().get_clause_list(sent)

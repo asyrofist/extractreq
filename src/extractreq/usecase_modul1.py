@@ -13,10 +13,15 @@ Original file is located at
 """
 
 """# Modul1: xmlparser"""
+#@title Modul1: XML Parser { vertical-output: true }
+filename= '/content/mydrive/MyDrive/dataset/IRCI_V2/researcher/IRCI_Researcher.xmi'
+# filename= '/content/mydrive/MyDrive/dataset/IRCI_V2/researcher/IRCI_Topic.xmi'
+# filename= '/content/mydrive/MyDrive/dataset/IRCI_V2/researcher/rAnalyzerUC.xmi'
+tipe_xmi_param = "{http://schema.omg.org/spec/XMI/2.1}type" #@param {type:"string"}
+id_xmi_param = "{http://schema.omg.org/spec/XMI/2.1}id" #@param {type:"string"}
 
 # function
-import xml.etree.ElementTree as ET
-import pandas as pd
+import xml.etree.ElementTree as ET, pandas as pd
 from tabulate import tabulate
 from time import time
 
@@ -24,9 +29,9 @@ from time import time
 class xmlParser:
 
     # inisialisasi
-    def __init__(self, filename= 'IRCI_Researcher.xmi', 
-                 tipe_xmi= '{http://schema.omg.org/spec/XMI/2.1}type',
-                 id_xmi= '{http://schema.omg.org/spec/XMI/2.1}id'):
+    def __init__(self, filename= filename, 
+                 tipe_xmi= tipe_xmi_param,
+                 id_xmi= id_xmi_param):
     	self.namaFile = filename
     	self.xmi_type = tipe_xmi
     	self.xmi_id = id_xmi
@@ -141,8 +146,8 @@ class xmlParser:
         root = tree1.getroot()
         byinclude = [packagedElement.attrib for packagedElement in root.iter(category)]
         for num in byinclude:
-          a1 = num['{http://schema.omg.org/spec/XMI/2.1}id']
-          b1 = num['{http://schema.omg.org/spec/XMI/2.1}type']
+          a1 = num[self.xmi_id]
+          b1 = num[self.xmi_type]
           c1 = num['includingCase']
           d1 = paketElemen[paketElemen['id'] == c1].iloc[0]['name']
           e1 = num['addition']
@@ -202,10 +207,7 @@ class xmlParser:
 if __name__ == "__main__":
   try:
       t0 = time()
-      # myXmlParser = xmlParser(filename= 'IRCI_Topic.xmi')
-      # myXmlParser = xmlParser(filename= 'IRCI_Researcher.xmi')
-      # myXmlParser = xmlParser(filename= 'rAnalyzerUC.xmi')
-      myXmlParser = xmlParser()
+      myXmlParser = xmlParser(filename)
       paketElemen = myXmlParser.dataPaketElemen()
       extendTable = myXmlParser.dataExtend()
       ownedEndTable = myXmlParser.dataOwnedEnd()

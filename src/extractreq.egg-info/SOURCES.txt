@@ -3,7 +3,6 @@ README.md
 pyproject.toml
 setup.py
 src/extractreq/__init__.py
-src/extractreq/modul_clausySent.py
 src/extractreq/modul_ekspart.py
 src/extractreq/modul_spacySent.py
 src/extractreq/modul_stanfordSent.py

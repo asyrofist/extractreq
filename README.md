@@ -7,6 +7,7 @@
 [![Build Status](https://app.travis-ci.com/asyrofist/Extraction-Requirement.svg?branch=main)](https://app.travis-ci.com/asyrofist/Extraction-Requirement)
 [![Paper](http://img.shields.io/badge/Paper-PDF-red.svg)](https://ieeexplore.ieee.org/document/9315489)
 [![Slide](http://img.shields.io/badge/Slides-PDF-orange.svg)](https://github.com/asyrofist/Extraction-Requirement/blob/main/docs/ISRITI_2020.pdf)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/asyrofist/demo_exctractreq/main/main.py)
 
 # Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
 
@@ -16,7 +17,7 @@ Version | 0.0.3
 Updated | 2021-10-09
 
 # overview
-[live_demo](https://share.streamlit.io/asyrofist/extraction-requirement/main/app.py) How to make Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
+[live_demo](https://share.streamlit.io/asyrofist/demo_exctractreq/main/main.py) How to make Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
 
 Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing described in our Proceeding Conference at [ISRITI2020](https://ieeexplore.ieee.org/document/9315489). Please kindly cite the following paper when you use this tool. It would also be appreciated if you send me a courtesy [website](https://www.researchgate.net/profile/Rakha_Asyrofi) and [google scholar](https://scholar.google.com/citations?user=WN9T5UUAAAAJ&hl=id&oi=ao), so I could survey what kind of tasks the tool is used for. 
 

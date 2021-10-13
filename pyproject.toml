@@ -4,3 +4,22 @@ requires = [
     "wheel"
 ]
 build-backend = "setuptools.build_meta"
+
+[tool.portray]
+output_dir = "documentation_website"
+
+[[tool.portray.mkdocs.nav]]
+Home = "README.md"
+
+[[tool.portray.mkdocs.nav]]
+Changelog = "CHANGELOG.md"
+
+[[tool.portray.mkdocs.nav]]
+Troubleshooting = "TROUBLESHOOTING.md"
+
+[[tool.portray.mkdocs.nav]]
+    [[tool.portray.mkdocs.nav.Contributing]]
+    "1. Contributing Guide" = "docs/kontribusi.md"
+
+    [[tool.portray.mkdocs.nav.Contributing]]
+    "2. Coding Standard" = "docs/standard.md"

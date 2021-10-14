@@ -6,7 +6,7 @@ To install the latest version simply run:
 `pip3 install extractreq`
 
 
-see the [Installation QuickStart](https://timothycrosley.github.io/portray/docs/quick_start/1.-installation/) for more instructions.
+see the [Installation QuickStart](https://asyrofist.github.io/extractreq) for more instructions.
 
 Changelog
 =========

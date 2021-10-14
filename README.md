@@ -9,6 +9,8 @@
 [![Slide](http://img.shields.io/badge/Slides-PDF-orange.svg)](https://github.com/asyrofist/Extraction-Requirement/blob/main/docs/ISRITI_2020.pdf)
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://extractionreq.herokuapp.com/)
 ![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=nltk&package-manager=pip&previous-version=3.2.5&new-version=3.6.5)
+[![Maintainability](https://api.codeclimate.com/v1/badges/e7007abd72e445009895/maintainability)](https://codeclimate.com/github/asyrofist/extractreq/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/e7007abd72e445009895/test_coverage)](https://codeclimate.com/github/asyrofist/extractreq/test_coverage)
 
 # Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing
 

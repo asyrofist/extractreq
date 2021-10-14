@@ -80,8 +80,8 @@ extractNlp().triplet_extraction(sent, 'parse_tree')
 
 ## Contribute
 
-- [Issue Tracker](https://github.com/asyrofist/Extraction-Requirement/issues): 
-- [Source Code](https://github.com/asyrofist/Extraction-Requirement): 
+- [Issue Tracker](https://github.com/asyrofist/Extraction-Requirement/issues)
+- [Source Code](https://github.com/asyrofist/Extraction-Requirement)
 
 ## Support
 
@@ -96,8 +96,6 @@ If you find this repository useful for your research, please use the following.
 booktitle={2020 3rd International Seminar on Research of Information Technology and Intelligent Systems (ISRITI)},   
 title={Extraction Dependency Based on Evolutionary Requirement Using Natural Language Processing},   
 year={2020},  
-volume={},  
-number={},  
 pages={332-337},  
 doi={10.1109/ISRITI51436.2020.9315489}}
 ```

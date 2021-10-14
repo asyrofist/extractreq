@@ -80,8 +80,8 @@ extractNlp().triplet_extraction(sent, 'parse_tree')
 
 ## Contribute
 
-- Issue Tracker: https://github.com/asyrofist/Extraction-Requirement/issues
-- Source Code: https://github.com/asyrofist/Extraction-Requirement
+- [Issue Tracker](https://github.com/asyrofist/Extraction-Requirement/issues): 
+- [Source Code](https://github.com/asyrofist/Extraction-Requirement): 
 
 ## Support
 
@@ -109,10 +109,7 @@ The project is licensed under the MIT License
 
 ## Reference
 
-[1] https://github.com/rahulkg31/sentence-to-clauses
-
-[2] https://subscription.packtpub.com/book/data/9781838987312/2/ch02lvl1sec13/
-
-[3] https://github.com/kj-lai/SentenceTriplet
-
-[4] https://youtu.be/-d96h9mhh9s
+- [Sentence-to-clauses](https://github.com/rahulkg31/sentence-to-clauses)
+- [spacy sentence to clauses](https://subscription.packtpub.com/book/data/9781838987312/2/ch02lvl1sec13/)
+- [sentence-triplet](https://github.com/kj-lai/SentenceTriplet)
+- [proceeding conference ISRITI 2020](https://youtu.be/-d96h9mhh9s)

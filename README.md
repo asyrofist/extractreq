@@ -46,7 +46,7 @@ srs_param = "indeks_parameter"
 # output_mode = ['pertama', 'kedua', 'ketiga', 'stat']
 partOf().extractPart(grd_param, file_param, srs_param, 'pertama')
 ```
-Check out: https://youtu.be/-d96h9mhh9s
+[check out my video explanation](https://ponselharian.com/0eCjkc) 
 
 ### Stanford modul:
 ```python
